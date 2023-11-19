@@ -32,6 +32,9 @@
                         </li>
                         @if(!auth()->guest())
                             <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ url('/events') }}"><i class="fa fa-plus"></i> Events</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ url('/contests/create') }}"><i class="fa fa-plus"></i> Create</a>
                             </li>
                             <li class="nav-item">
@@ -51,7 +54,7 @@
             </div>
             </div>
         </div>
-  
+
     </nav>
 
     @include('flash-message')
