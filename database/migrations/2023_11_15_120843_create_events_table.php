@@ -15,13 +15,9 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->date('schedule');
-            $table->string('venue');
-            $table->string('computation');
-            $table->bigInteger('user_id')->unsigned();
+            $table->string('event_name')->nullable();
+
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

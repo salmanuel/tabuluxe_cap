@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContestController;
-use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\JudgeController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\ContestController;
 use App\Http\Controllers\JudgingController;
 use App\Http\Controllers\CriteriaController;
+use App\Http\Controllers\ContestantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +32,15 @@ Route::get('/judging/scoresheet',[JudgingController::class, 'scoreSheet']);
 
 Route::group(['middleware'=>'auth'], function() {
     Route::get('/home', [SiteController::class, 'home']);
-    Route::get('/contests',[ContestController::class, 'index']);
-    Route::get('/contests/create',[ContestController::class, 'create']);
+
+    Route::get('/events',[EventsController::class, 'event']);
+    Route::get('/events/create',[EventsController::class, 'create']);
+    Route::post('/events', [EventsController::class, 'store']);
+
+    Route::get('/events/{eventId}/contests',[ContestController::class, 'index']);
+    Route::get('/events/{eventId}/contests/create',[ContestController::class, 'create']);
     Route::get('/contests/{contest}',[ContestController::class, 'show']);
-    Route::post('/contests', [ContestController::class, 'store']);
+    Route::post('/events/{eventId}/contests', [ContestController::class, 'store']);
     Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
     Route::post("/contests/{contest}/judges", [JudgeController::class, 'store']);
     Route::post("/contests/{contest}/criterias", [CriteriaController::class, 'store']);
