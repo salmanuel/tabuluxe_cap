@@ -33,13 +33,22 @@ Route::get('/judging/scoresheet',[JudgingController::class, 'scoreSheet']);
 Route::group(['middleware'=>'auth'], function() {
     Route::get('/home', [SiteController::class, 'home']);
 
-    Route::get('/events',[EventsController::class, 'event']);
+    Route::get('/events',[EventsController::class, 'event'])->name('events.event');
     Route::get('/events/create',[EventsController::class, 'create']);
     Route::post('/events', [EventsController::class, 'store']);
 
-    Route::get('/events/{eventId}/contests',[ContestController::class, 'index']);
+    Route::put('/events/{id}', [EventsController::class, 'update'])->name('events.update');
+    Route::delete('/events/{id}', [EventsController::class, 'destroy'])->name('events.destroy');
+
+    Route::get('/events/{eventId}/contests',[ContestController::class, 'index'])->name('contests.contest');
+
+    Route::put('/contests/{id}', [ContestController::class, 'update'])->name('contests.update');
+    Route::delete('/contests/{id}', [ContestController::class, 'destroy'])->name('contests.destroy');
+
     Route::get('/events/{eventId}/contests/create',[ContestController::class, 'create']);
     Route::get('/contests/{contest}',[ContestController::class, 'show']);
+
+
     Route::post('/events/{eventId}/contests', [ContestController::class, 'store']);
     Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
     Route::post("/contests/{contest}/judges", [JudgeController::class, 'store']);

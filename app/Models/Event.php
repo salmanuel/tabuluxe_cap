@@ -10,4 +10,8 @@ class Event extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function contests(){
+        return $this->hasMany('App\Models\Contest');
+    }
 }

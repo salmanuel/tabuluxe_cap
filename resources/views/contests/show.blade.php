@@ -2,7 +2,9 @@
 
 @section('content')
 
-<h1>{{$contest->title}} - Setup</h1>
+<h1>{{$contest->title}} - Contest Title</h1>
+<h1>{{$contest->computation}} - Contest Computation</h1>
+<h1>{{$contest->event->event_name}} - Event</h1>
 <hr>
 
 <div class="row d-flex align-items-stretch">

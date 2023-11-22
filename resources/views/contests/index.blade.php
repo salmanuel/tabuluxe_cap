@@ -26,6 +26,14 @@
             <td>{{$contest->schedule}}</td>
             <td>{{$contest->venue}}</td>
             <td class='text-center'>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{$contest->id}}">
+                    Edit
+                  </button>
+                  @include('contests.edit-contest')
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{$contest->id}}">
+                    Delete
+                  </button>
+                  @include('contests.delete-contest')
                 <a href="{{url('/contests/' . $contest->id)}}" class="btn btn-sm btn-info">
                     <i class="fa-solid fa-folder-open"></i>
                 </a>

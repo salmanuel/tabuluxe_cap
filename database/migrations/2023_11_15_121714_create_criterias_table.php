@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('weight');
             $table->bigInteger('contest_id')->unsigned();
             $table->timestamps();
-            $table->foreign('contest_id')->references('id')->on('contests');
+            $table->foreign('contest_id')->references('id')->on('contests')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
