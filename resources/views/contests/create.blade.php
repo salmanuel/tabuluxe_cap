@@ -14,7 +14,7 @@
         </div>
         <div class="mb-3">
             {!! Form::label("schedule", "Schedule") !!}
-            {!! Form::text("schedule", null, ['class'=>'form-control']) !!}
+            {!! Form::date("schedule", null, ['class'=>'form-control']) !!}
         </div>
         <div class="mb-3">
             {!! Form::label("venue", "Venue") !!}
@@ -22,7 +22,7 @@
         </div>
         <div class="mb-3">
             {!! Form::label("computation", "Computation Type") !!}
-            {!! Form::select("computation", ['Average' => 'Average', 'Ranking' => 'Ranking'], null, ['class'=>'form-control']) !!}
+            {!! Form::select("computation", ['Average' => 'Average', 'Ranking' => 'Ranking', 'Complex' => 'Complex'], null, ['class'=>'form-control']) !!}
         </div>
 
         <button type="submit" class="btn btn-success btn-lg">Create Contest</button>

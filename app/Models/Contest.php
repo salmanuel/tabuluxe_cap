@@ -24,6 +24,9 @@ class Contest extends Model
     public function criterias() {
         return $this->hasMany('App\Models\Criteria');
     }
+    public function event() {
+        return $this->belongsTo('App\Models\Event');
+    }
 
     public function nextContestantNumber() {
         $contestant = Contestant::where('contest_id', $this->id)

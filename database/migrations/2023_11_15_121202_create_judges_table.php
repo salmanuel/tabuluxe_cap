@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('access_token');
             $table->timestamps();
 
-            $table->foreign('contest_id')->references('id')->on('contests');
+            $table->foreign('contest_id')->references('id')->on('contests')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Contest;
+use App\Models\Event;
 use App\Models\Judge;
+use App\Models\Contest;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 class ContestController extends Controller
 {
@@ -35,14 +36,15 @@ class ContestController extends Controller
             'schedule' => $request->schedule,
             'venue' => $request->venue,
             'computation' => $request->computation,
-            'event_id' => $eventId, // Ensure you include this line
+            'event_id' => $eventId,
         ]);
 
-        return redirect('/contests/' . $contest->id)->with('Info', 'A new contest has been created.');
+        return redirect('/events/' . $contest->event_id . '/contests')->with('Info', 'A new contest has been created.');
     }
 
 
     public function show(Contest $contest) {
+
         $computation = [];
 
 
@@ -71,7 +73,44 @@ class ContestController extends Controller
 
         return view('contests.show', [
             'contest' => $contest,
-            'computation' => $computation
+            'computation' => $computation,
+
         ]);
     }
+
+    public function edit($id)
+    {
+        $contests = Contest::findOrFail($id);
+        $events = Event::where('id')->get();
+        return view('contests.edit-contest', compact('contests, events'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'title' => 'string|required',
+            'schedule' => 'string|required',
+            'venue' => 'string|required',
+            'computation' => 'string|required',
+
+        ]);
+
+        $contest = Contest::findOrFail($id);
+        $contest->title = $validatedData['title'];
+        $contest->schedule = $validatedData['schedule'];
+        $contest->venue = $validatedData['venue'];
+        $contest->computation = $validatedData['computation'];
+        // $contest->event_id = $eventId;
+        $contest->save();
+
+        return redirect('/events/' . $contest->event_id . '/contests')->with('Info', 'Updated Successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $contest = Contest::findOrFail($id);
+        $contest->delete();
+        return redirect('/events/' . $contest->event_id . '/contests')->with('Info', 'Deleted Successfully.');
+    }
+
 }

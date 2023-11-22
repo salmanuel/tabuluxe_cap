@@ -34,12 +34,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ url('/events') }}"><i class="fa fa-plus"></i> Events</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ url('/contests/create') }}"><i class="fa fa-plus"></i> Create</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ url('/contests') }}"><i class="fa fa-users"></i> Contests</a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
                             </li>

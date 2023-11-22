@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Event;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class EventSeeder extends Seeder
 {
@@ -14,6 +15,10 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Event::factory(3)->create();
+        // \App\Models\Event::factory(3)->create();
+
+        Event::create([
+            'event_name' => 'Intramurals',
+        ]);
     }
 }
