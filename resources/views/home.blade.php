@@ -2,19 +2,33 @@
 
 @section('content')
 
-<div class="row mx-auto">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-body bg-dark text-white d-flex align-items-center justify-content-center" style="min-height: 240px">
-                <h1 class="font-bold text-gray-200">Tabuluxe</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-7">
-        <p class="mt-4 fs-4">
-
-        </p>
+<div class="bg-dark shadow-lg">
+    <div class="container py-3 px-4 rounded">
+        <h3 class="font-weight-bold text-warning mb-0">Dashboard</h3>
     </div>
 </div>
 
+<div class="row d-flex align-items-stretch mt-4 justify-content-center">
+    <div class="col-md-3 mb-3">
+        <div class="card col d-flex justify-content-center align-items-center p-5 my-3">
+            <h4>Total Events:</h4>
+            <h3>{{ $totalEvents }}</h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card col d-flex justify-content-center align-items-center p-5 my-3">
+            <h4>Total Contests:</h4>
+            <h3>{{ $totalContests }}</h3>
+        </div>
+    </div>
+</div>
+
+
 @endsection
+
+<style scoped>
+    .card {
+        background-color: #080d32 !important;
+        color: #ffbd59;
+    }
+</style>

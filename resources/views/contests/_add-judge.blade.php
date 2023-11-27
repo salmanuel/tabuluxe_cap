@@ -1,6 +1,6 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addJudgeModal" title="Add a judge">
-    <i class="fa fa-plus"></i>
+<button type="button" class="addbtn btn" data-bs-toggle="modal" data-bs-target="#addJudgeModal" title="Add a judge">
+  <i class="fa-solid fa-user-plus"></i>
 </button>
 
   <!-- Modal -->
@@ -14,12 +14,12 @@
         {!! Form::open(['url'=>'/contests/' . $contest->id . '/judges', 'method'=>'post']) !!}
         <div class="modal-body">
             <div class="mb-3">
-                {!! Form::label("name") !!}
+                {!! Form::label("Name") !!}
                 {!! Form::text("name", null, ['class'=>'form-control']) !!}
             </div>
 
             <div class="mb-3">
-                {!! Form::label("pass_code") !!}
+                {!! Form::label("Passcode") !!}
                 {!! Form::text("pass_code", \Illuminate\Support\Str::random(6), ['class'=>'form-control']) !!}
             </div>
         </div>
@@ -31,3 +31,19 @@
       </div>
     </div>
   </div>
+
+  <style scoped>
+.addbtn {
+    background-color: #ffbd59 !important;
+}
+
+.addbtn:hover {
+    background-color: #080d32 !important;
+    color: #ffbd59 !important;
+
+}
+.modal-content {
+      background-color: #1a202c;
+      color: white;
+    }
+  </style>

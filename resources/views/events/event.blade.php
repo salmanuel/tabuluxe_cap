@@ -21,21 +21,21 @@
         </thead>
         <tbody>
             @foreach($events as $event)
-            <tr>
+            <tr class="bg-secondary">
                 <td class="text-white">{{$event->event_name}}</td>
     
                 {{-- <td>{{$event->schedule}}</td>
                 <td>{{$event->venue}}</td> --}}
                 <td class='text-center'>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{$event->id}}">
+                    <button type="button" class="btn btn-primary p-1" data-bs-toggle="modal" data-bs-target="#editModal{{$event->id}}">
                         Edit
                       </button>
                       @include('events.edit-event')
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{$event->id}}">
+                    <button type="button" class="btn btn-danger p-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{$event->id}}">
                         Delete
                       </button>
                       @include('events.delete-event')
-                    <a href="{{url('/events/' . $event->id . '/contests')}}" class="btn btn-sm btn-info">
+                    <a href="{{url('/events/' . $event->id . '/contests')}}" class="btn btn-sm btn-info p-2">
                         <i class="fa-solid fa-folder-open"></i>
                     </a>
                 </td>

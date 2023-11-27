@@ -1,21 +1,24 @@
 @extends('base')
 
 @section('content')
+<div class="mt-2">
+    <div class="d-flex align-items-center">
+        <h1 class="title">{{$contest->title}}</h1> 
+        <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button>
+    </div>
+    <hr>
+</div>
 
-<h1>{{$contest->title}} - Contest Title</h1>
-<h1>{{$contest->computation}} - Contest Computation</h1>
-<h1>{{$contest->event->event_name}} - Event</h1>
-<hr>
 
 <div class="row d-flex align-items-stretch">
 
     <div class="col-md-4 mb-3">
         <div class="card h-100">
-            <div class="card-body bg-light shadow">
+            <div class="card-body shadow">
                 <div class="float-end">
                     @include('contests._add-judge')
                 </div>
-                <h3>Judges</h3>
+                <h5>Judges</h5>
                 <hr>
                 <table class="table table-bordered table-striped sm">
                     <thead>
@@ -28,8 +31,8 @@
                     <tbody>
                         @foreach($contest->judges as $judge)
                         <tr>
-                            <td>{{$judge->name}}</td>
-                            <td><span style="text-transform: uppercase; font-family:'Times New Roman', Times, serif">{{$judge->passcode}}</span></td>
+                            <td  class="text-white">{{$judge->name}}</td>
+                            <td  class="text-white"><span style="text-transform: uppercase; font-family:'Times New Roman', Times, serif">{{$judge->passcode}}</span></td>
                             <td class="text-center">
                                 <a href="{{url('/judges/' . $judge->id)}}" class="btn btn-sm btn-secondary">
                                     <i class="fa fa-folder-open"></i>
@@ -44,11 +47,11 @@
     </div>
     <div class="col-md-8 mb-3">
         <div class="card h-100">
-            <div class="card-body bg-light shadow">
+            <div class="card-body shadow">
                 <div class="float-end">
                     @include('contests._add-criteria')
                 </div>
-                <h3>Criterias</h3>
+                <h5>Criterias</h5>
                 <hr>
                 <table class="table table-bordered table-sm">
                     <thead>
@@ -63,11 +66,11 @@
                         @foreach($contest->criterias as $criteria)
                         <?php $total+=$criteria->weight; ?>
                         <tr>
-                            <td>
+                            <td  class="text-white">
                                 {{$criteria->name}}
                                 <div class="text-muted fst-italic ms-2">{{$criteria->description}}</div>
                             </td>
-                            <td class="text-center">{{$criteria->weight}}</td>
+                            <td class="text-center text-white">{{$criteria->weight}}</td>
                             <td class="text-center">
                                 <a href="{{url('/criterias/' . $criteria->id)}}" class="btn btn-sm btn-secondary">
                                     <i class="fa fa-folder-open"></i>
@@ -76,8 +79,8 @@
                         </tr>
                         @endforeach
                         <tr>
-                            <td class="fw-bold">TOTAL</td>
-                            <td class="text-center fw-bold">{{$total}}</td>
+                            <td class="fw-bold text-white">TOTAL</td>
+                            <td class="text-center fw-bold text-white">{{$total}}</td>
                             <td>&nbsp;</td>
                         </tr>
                     </tbody>
@@ -96,7 +99,7 @@
         <hr>
         <table class="table table-bordered table-striped">
             <thead>
-                <tr class="bg-secondary text-light">
+                <tr class="custom-table-row">
                     <th rowspan="2">Name</th>
                     @foreach($contest->judges as $judge)
                     <th class="text-center" colspan="2">{{$judge->name}}</th>
@@ -104,7 +107,7 @@
                     <th class="text-center" rowspan="2">Sum of Ranks</th>
                     <th class="text-center" rowspan="2">Final Rank</th>
                     <th rowspan="2" class="text-center">...</th>
-                    <tr class="bg-secondary text-light">
+                    <tr class="custom-table-row">
                     @foreach($contest->judges as $judge)
                         <th class="text-center">Score</th>
                         <th class="text-center">Rank</th>
@@ -116,9 +119,9 @@
             <tbody>
                 @foreach($computation as $id=>$row)
 
-                <tr>
+                <tr class="text-white">
                     @foreach($row as $rw)
-                        <td class="text-center">{!!$rw !!}</td>
+                        <td class="text-center text-white">{!!$rw !!}</td>
                     @endforeach
                     <td class="text-center">
                         <a href="{{url('/contestants/' . $id)}}" class="btn btn-sm btn-secondary">
@@ -133,4 +136,33 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+
 @endsection
+
+<style scoped>
+.title {
+    color: #ffbd59;
+}
+
+.custom-table-row {
+    text-align: left;
+    font-size: 0.75rem; 
+    line-height: 1.5rem; 
+    font-weight: bold; 
+    color: #ffffff; 
+    text-transform: uppercase; 
+    letter-spacing: 0.1em; 
+    background-color: #1a202c;
+}
+
+.card-body {
+    background-color: #1a202c;
+    color: #ffffff
+}
+
+</style>

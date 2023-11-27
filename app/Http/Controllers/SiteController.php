@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contest;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -25,7 +27,10 @@ class SiteController extends Controller
     }
 
     public function home() {
-        return view('home');
+        $totalEvents = Event::count();
+        $totalContests = Contest::count();
+
+        return view('home', compact('totalEvents', 'totalContests'));
     }
 
     public function logout() {

@@ -5,7 +5,7 @@
     <a href="{{ url('/events/' . $eventId . '/contests/create') }}" class="addbtn btn vbtn-lg float-end">
         <i class="fa-solid fa-calendar-plus"></i>
     </a>
-    <h1 class="mt-4">My Contests</h1>
+    <h1 class="mt-4 title">Contests</h1>
     <hr>
     
     <table class="table table-bordered table-striped">
@@ -26,15 +26,15 @@
                 <td class="text-white">{{$contest->schedule}}</td>
                 <td class="text-white">{{$contest->venue}}</td>
                 <td class='text-center'>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{$contest->id}}">
+                    <button type="button" class="btn btn-primary p-1" data-bs-toggle="modal" data-bs-target="#editModal{{$contest->id}}">
                         Edit
                       </button>
                       @include('contests.edit-contest')
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{$contest->id}}">
+                    <button type="button" class="btn btn-danger p-1" data-bs-toggle="modal" data-bs-target="#deleteModal{{$contest->id}}">
                         Delete
                       </button>
                       @include('contests.delete-contest')
-                    <a href="{{url('/contests/' . $contest->id)}}" class="btn btn-sm btn-info">
+                    <a href="{{url('/contests/' . $contest->id)}}" class="btn btn-sm btn-info p-2">
                         <i class="fa-solid fa-folder-open"></i>
                     </a>
                 </td>
@@ -47,6 +47,9 @@
 @endsection
 
 <style scoped>
+.title {
+    color: #ffbd59;
+}
 
 .addbtn {
     background-color: #ffbd59 !important;

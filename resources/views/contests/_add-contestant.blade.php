@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success"
+<button type="button" class="btn addbtn"
         data-bs-toggle="modal" title="Add a contestant"
         data-bs-target="#addContestantModal">
     <i class="fa fa-plus"></i>
@@ -39,3 +39,20 @@
       </div>
     </div>
   </div>
+
+  <style scoped>
+    .addbtn {
+    background-color: #ffbd59 !important;
+    }
+
+    .addbtn:hover {
+        background-color: #080d32 !important;
+        color: #ffbd59 !important;
+
+    }
+
+    .modal-content {
+      background-color: #1a202c;
+      color: white;
+    }
+  </style>

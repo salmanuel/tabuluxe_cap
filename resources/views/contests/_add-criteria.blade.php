@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-success"
+<button type="button" class="btn addbtn"
         data-bs-toggle="modal" title="Add a criteria"
         data-bs-target="#addCriteriaModal">
     <i class="fa fa-plus"></i>
@@ -11,7 +11,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="addCriteriaModalLabel">Add Criteria</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="text-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         {!! Form::open(['url'=>'/contests/' . $contest->id . '/criterias', 'method'=>'post']) !!}
         <div class="modal-body">
@@ -39,3 +39,20 @@
       </div>
     </div>
   </div>
+
+  <style scoped>
+    .addbtn {
+    background-color: #ffbd59 !important;
+    }
+
+    .addbtn:hover {
+        background-color: #080d32 !important;
+        color: #ffbd59 !important;
+
+    }
+
+    .modal-content {
+      background-color: #1a202c;
+      color: white;
+    }
+  </style>
