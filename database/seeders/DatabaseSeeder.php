@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(JudgesSeeder::class);
         $this->call(ContestantSeeder::class);
+        $this->call(RoundSeeder::class);
         $this->call(CriteriaSeeder::class);
 
     }

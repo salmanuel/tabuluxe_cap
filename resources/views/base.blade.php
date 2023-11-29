@@ -57,6 +57,8 @@
                 
            
             <div class="col-11 bg-secondary" style="width: 87.33%">
+                @include('flash-message')
+
                 @yield('content')
             </div>
             </div>
@@ -64,7 +66,6 @@
 
     </nav>
 
-    @include('flash-message')
 
     @yield('scripts')
 

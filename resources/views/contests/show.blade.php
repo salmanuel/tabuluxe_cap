@@ -24,7 +24,7 @@
                     <thead>
                         <tr class="bg-secondary text-light">
                             <th>Judge</th>
-                            <th>Pass Code</th>
+                            <th>Passcode</th>
                             <th>...</th>
                         </tr>
                     </thead>
@@ -90,12 +90,85 @@
     </div>
 </div>
 
+<div class="row d-flex align-items-stretch">
+
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-body shadow">
+                <div class="float-end">
+                    @include('contests._add-contestant')
+                </div>
+                <h5>Contestants</h5>
+                <hr>
+                <table class="table table-bordered table-striped sm">
+                    <thead>
+                        <tr class="bg-secondary text-light">
+                            <th>Name</th>
+                            <th>Remarks</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($contest->contestants as $contestant)
+                        <tr>
+                            <td  class="text-white">#{{$contestant->number}} {{$contestant->name}}</td>
+                            <td  class="text-white"><span style="text-transform: uppercase; font-family:'Times New Roman', Times, serif">{{$contestant->remarks}}</span></td>
+                            <td class="text-center">
+                                <a href="{{url('/contestants/' . $contestant->id)}}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-folder-open"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-body shadow">
+                <div class="float-end">
+                    @include('contests._add-round')
+                </div>
+                <h5>Rounds</h5>
+                <hr>
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr class="bg-secondary text-white">
+                            <th>Number of Rounds</th>
+                            <th class="text-center">Contestant per Round</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($contest->rounds as $round)
+                        <tr>
+                            <td  class="text-white">
+                                {{$round->rounds}}
+                            </td>
+                            <td class="text-center text-white">{{$round->no_of_contestants}}</td>
+                            <td class="text-center">
+                                <a href="{{url('/rounds/' . $round->id)}}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-folder-open"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@foreach ($contest->rounds as $round)
 <div class="row">
     <div class="col">
         <div class="float-end">
-            @include('contests._add-contestant')
+            {{-- @include('contests._add-contestant') --}}
         </div>
-        <h3>Contestants</h3>
+        <h3>Contestants Score</h3>
         <hr>
         <table class="table table-bordered table-striped">
             <thead>
@@ -135,6 +208,8 @@
         </table>
     </div>
 </div>
+
+@endforeach
 
 <script>
     $(document).ready(function(){

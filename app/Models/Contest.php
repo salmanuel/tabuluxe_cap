@@ -24,6 +24,11 @@ class Contest extends Model
     public function criterias() {
         return $this->hasMany('App\Models\Criteria');
     }
+
+    public function rounds() {
+        return $this->hasMany('App\Models\Round');
+    }
+
     public function event() {
         return $this->belongsTo('App\Models\Event');
     }

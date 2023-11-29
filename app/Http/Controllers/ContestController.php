@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Judge;
 use App\Models\Contest;
+use App\Models\Round;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ContestController extends Controller
 {
@@ -39,6 +41,11 @@ class ContestController extends Controller
             'event_id' => $eventId,
         ]);
 
+        Round::create([
+            'contest_id' => $contest->id,
+            'rounds' => 1,
+        ]);
+
         return redirect('/events/' . $contest->event_id . '/contests')->with('Info', 'A new contest has been created.');
     }
 
@@ -59,6 +66,9 @@ class ContestController extends Controller
                 $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
                 $row[] = $rank = $judge->rank($contestant);
                 $sumOfRanks += $rank;
+
+                // $decryptedPasscode = Crypt::decryptString($judge->password);
+                // $judge->setAttribute('decryptedPasscode', $decryptedPasscode);
             }
 
             $row['sumOfRank'] = $sumOfRanks;
@@ -71,9 +81,12 @@ class ContestController extends Controller
             $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
         }
 
+        $rounds = $contest->rounds;
+
         return view('contests.show', [
             'contest' => $contest,
             'computation' => $computation,
+            'rounds' => $rounds
 
         ]);
     }

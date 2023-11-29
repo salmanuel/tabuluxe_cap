@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scores', function (Blueprint $table) {
+        Schema::create('rounds', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('contestant_id')->unsigned();
-            $table->bigInteger('judge_id')->unsigned();
-            $table->bigInteger('criteria_id')->unsigned();
-            $table->bigInteger('round_id')->unsigned()->nullable();
-            $table->integer('score')->unsigned()->nullable();
+            $table->bigInteger('contest_id')->unsigned();
+            $table->integer('rounds')->nullable();
+            $table->string('no_of_contestants')->nullable();
             $table->timestamps();
+
+            $table->foreign('contest_id')->references('id')->on('contests')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scores');
+        Schema::dropIfExists('rounds');
     }
 };

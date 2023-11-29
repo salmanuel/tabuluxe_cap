@@ -26,11 +26,14 @@ class ContestantController extends Controller
 
         foreach($contest->judges as $judge) {
             foreach($contest->criterias as $criteria) {
-                Score::create([
-                    'contestant_id' => $contestant->id,
-                    'criteria_id' => $criteria->id,
-                    'judge_id' => $judge->id,
-                ]);
+                foreach($contest->rounds as $round) {
+                    Score::create([
+                        'contestant_id' => $contestant->id,
+                        'criteria_id' => $criteria->id,
+                        'judge_id' => $judge->id,
+                        'round_id' => $round->id
+                    ]);
+                }
             }
         }
 

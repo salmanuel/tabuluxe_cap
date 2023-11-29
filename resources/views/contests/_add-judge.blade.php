@@ -20,7 +20,7 @@
 
             <div class="mb-3">
                 {!! Form::label("Passcode") !!}
-                {!! Form::text("pass_code", \Illuminate\Support\Str::random(6), ['class'=>'form-control']) !!}
+                {!! Form::text("passcode", \Illuminate\Support\Str::random(6), ['class'=>'form-control']) !!}
             </div>
         </div>
         <div class="modal-footer">

@@ -9,6 +9,7 @@ use App\Http\Controllers\ContestController;
 use App\Http\Controllers\JudgingController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\ContestantController;
+use App\Http\Controllers\RoundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
     Route::post("/contests/{contest}/judges", [JudgeController::class, 'store']);
     Route::post("/contests/{contest}/criterias", [CriteriaController::class, 'store']);
+    Route::post("/contests/{contest}/rounds", [RoundController::class, 'store']);
 
     Route::get('/contestants/{contestant}',[ContestantController::class, 'show']);
     Route::put('/contestants/{contestant}',[ContestantController::class, 'update']);

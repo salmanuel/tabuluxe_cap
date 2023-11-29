@@ -9,7 +9,7 @@ class Score extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['contestant_id', 'criteria_id', 'judge_id', 'score'];
+    protected $fillable = ['contestant_id', 'criteria_id', 'judge_id', 'round_id', 'score'];
 
     public static function judgeTotal($judgeId, $contestantId) {
         return Score::where('judge_id', $judgeId)

@@ -13,23 +13,28 @@ class JudgeController extends Controller
     public function store(Request $request, Contest $contest) {
         $request->validate([
             'name' => 'string|required',
-            'pass_code' => 'string|required',
+            'passcode' => 'string|required|unique:judges',
         ]);
 
         $judge=Judge::create([
             'name' => $request->name,
-            'passcode' => $request->pass_code,
+            'passcode' => $request->passcode,
+            // 'password' => Crypt::encryptString($request->pass_code),
+            // 'passcode' => bcrypt($request->pass_code),
             'contest_id' => $contest->id,
             'access_token' => Str::random(64)
         ]);
 
         foreach($contest->contestants as $contestant) {
             foreach($contest->criterias as $criteria) {
-                Score::create([
-                    'contestant_id' => $contestant->id,
-                    'criteria_id' => $criteria->id,
-                    'judge_id' => $judge->id
-                ]);
+                foreach($contest->rounds as $round) {
+                    Score::create([
+                        'contestant_id' => $contestant->id,
+                        'criteria_id' => $criteria->id,
+                        'judge_id' => $judge->id,
+                        'round_id' => $round->id
+                    ]);
+                }
             }
         }
 
