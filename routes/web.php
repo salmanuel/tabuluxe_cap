@@ -10,6 +10,7 @@ use App\Http\Controllers\JudgingController;
 use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\RoundController;
+use App\Http\Controllers\DanceSportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,18 @@ Route::group(['middleware'=>'auth'], function() {
 
     Route::get('/criterias/{criteria}', [CriteriaController::class, 'show']);
     Route::put('/criterias/{criteria}', [CriteriaController::class, 'update']);
+
+    Route::get('/dancesports',[DanceSportController::class, 'index'])->name('dancesports.dancesport');
+    Route::get('/dancesports/create',[DanceSportController::class, 'create']);
+    Route::post('/dancesports', [DanceSportController::class, 'store']);
+    Route::get('/dancesports/{contest}',[DanceSportController::class, 'show']);
+
+    Route::post("/dancesports/{contest}/judges", [JudgeController::class, 'store']);
+    Route::post("/dancesports/{contest}/criterias", [CriteriaController::class, 'store']);
+    Route::post("/dancesports/{contest}/contestants", [ContestantController::class, 'store']);
+
+    Route::put('/dancesports/{id}', [DanceSportController::class, 'update'])->name('dancesports.update');
+    Route::delete('/dancesports/{id}', [DanceSportController::class, 'destroy'])->name('dancesports.destroy');
 
     Route::get('/logout',[SiteController::class, 'logout']);
 });

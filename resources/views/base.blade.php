@@ -41,6 +41,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link " href="{{ url('/events') }}"><i class="fa-regular fa-calendar-days"></i> Events</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="{{ url('/dancesports') }}"><i class="fa-solid fa-person-walking"></i> Dancesports</a>
+                                </li>
                                 {{-- <li class="nav-item">
                                     <a class="nav-link " href="{{ url('/contests/create') }}"><i class="fa fa-plus"></i> Create</a>
                                 </li>

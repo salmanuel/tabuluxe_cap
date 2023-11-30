@@ -38,7 +38,13 @@ class JudgeController extends Controller
             }
         }
 
-        return redirect('/contests/' . $contest->id)->with('Info','A new Judge has been created.');
+        // return redirect('/contests/' . $contest->id)->with('Info','A new Judge has been created.');
+        if ($contest->dancesports) {
+            return redirect('/dancesports/' . $contest->id)->with('Info', 'A new Judge has been created.');
+        } else {
+            return redirect('/contests/' . $contest->id)->with('Info', 'A new Judge has been created.');
+        }
+        
     }
 
     public function show(Judge $judge) {

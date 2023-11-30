@@ -38,7 +38,7 @@ class RoundController extends Controller
     public function store(Request $request, Contest $contest)
     {
         $request->validate([
-            'rounds' => 'numeric|required|unique:rounds',
+            'rounds' => 'numeric|required|unique:rounds,rounds,NULL,id,contest_id,' . $contest->id,
             'no_of_contestants' => 'string|required',
         ]);
 

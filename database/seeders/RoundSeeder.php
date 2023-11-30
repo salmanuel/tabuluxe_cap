@@ -22,10 +22,10 @@ class RoundSeeder extends Seeder
 
         ]);
 
-        Round::create([
-            'contest_id' => 1,
-            'rounds' => 2,
+        // Round::create([
+        //     'contest_id' => 1,
+        //     'rounds' => 2,
 
-        ]);
+        // ]);
     }
 }

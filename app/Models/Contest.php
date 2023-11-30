@@ -10,7 +10,7 @@ class Contest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'schedule', 'event_id', 'computation', 'venue'
+        'title', 'schedule', 'event_id', 'computation', 'venue', 'dancesports'
     ];
 
     public function judges() {

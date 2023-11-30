@@ -37,7 +37,11 @@ class ContestantController extends Controller
             }
         }
 
-        return redirect("/contests/$contest->id")->with('Info','A new contestant has been added.');
+        if ($contest->dancesports) {
+            return redirect('/dancesports/' . $contest->id)->with('Info', 'A new contestant has been added.');
+        } else {
+            return redirect('/contests/' . $contest->id)->with('Info', 'A new contestant has been added.');
+        }
     }
 
     public function show(Contestant $contestant) {

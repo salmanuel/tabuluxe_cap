@@ -4,7 +4,7 @@
 <div class="mt-2">
     <div class="d-flex align-items-center">
         <h1 class="title">{{$contest->title}}</h1> 
-        <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button>
+        <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button>
     </div>
     <hr>
 </div>
@@ -16,7 +16,7 @@
         <div class="card h-100">
             <div class="card-body shadow">
                 <div class="float-end">
-                    @include('contests._add-judge')
+                    @include('dancesports._add-judge')
                 </div>
                 <h5>Judges</h5>
                 <hr>
@@ -51,7 +51,7 @@
                 <div class="float-end">
                     @include('contests._add-criteria')
                 </div>
-                <h5>Criterias</h5>
+                <h5>Categories</h5>
                 <hr>
                 <table class="table table-bordered table-sm">
                     <thead>
