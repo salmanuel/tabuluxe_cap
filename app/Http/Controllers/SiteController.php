@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contest;
 use App\Models\Event;
+use App\Models\Judge;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -28,9 +29,11 @@ class SiteController extends Controller
 
     public function home() {
         $totalEvents = Event::count();
-        $totalContests = Contest::count();
+        $totalJudges = Judge::count();
+        $totalContests = Contest::where('dancesports', false)->count();
+        $totalDancesports = Contest::where('dancesports', true)->count();
 
-        return view('home', compact('totalEvents', 'totalContests'));
+        return view('home', compact('totalEvents', 'totalJudges', 'totalContests', 'totalDancesports'));
     }
 
     public function logout() {

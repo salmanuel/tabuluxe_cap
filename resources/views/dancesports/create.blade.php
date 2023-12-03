@@ -13,7 +13,7 @@
 
             <div class="mb-3">
                 {!! Form::label("title", "Title", ['class' => ' fs-6']) !!}
-                {!! Form::text("title", null, ['class'=>'form-control form-control-sm text-dark']) !!}
+                {!! Form::select("title",['Latin' => 'Latin', 'Standard' => 'Standard'], null, ['class'=>'form-control form-control-sm text-dark']) !!}
             </div>
             <div class="mb-3">
                 {!! Form::label("schedule", "Schedule", ['class' => ' fs-6']) !!}

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->integer('weight');
+            $table->integer('weight')->nullable();
             $table->bigInteger('contest_id')->unsigned();
             $table->timestamps();
             $table->foreign('contest_id')->references('id')->on('contests')->onUpdate('cascade')->onDelete('cascade');

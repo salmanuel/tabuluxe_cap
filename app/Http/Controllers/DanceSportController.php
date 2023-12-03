@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contest;
+use App\Models\Criteria;
 use App\Models\Judge;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,76 @@ class DanceSportController extends Controller
             'computation' => $request->computation,
             'dancesports' => true
         ]);
+        
+        if($contest->title = 'Latin') {
+            $latins = [
+                [
+                    'name' => 'Cha Cha',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'name' => 'Samba',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'name' => 'Rumba',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'name' => 'Paso Doble',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'name' => 'Jive',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+
+            ];
+            foreach($latins as $latin) {
+                Criteria::create($latin);
+            }
+            // Criteria::create([
+            //     'name' => ''
+            // ]);
+        }else{
+            $standard = [
+                [
+                    'name' => 'Slow Waltz',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'Tango',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'Viennese Waltz',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'Foxtrot',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+                ],
+                [
+                    'Quickstep',
+                    'description' => 'Dance',
+                    'contest_id' => $contest->id
+
+                ]
+            ];
+            foreach($standard as $stndrd) {
+                Criteria::create($stndrd);
+            }
+        }
+        
 
         return redirect('/dancesports/')->with('Info', 'A new dancesport contest has been created.');
 

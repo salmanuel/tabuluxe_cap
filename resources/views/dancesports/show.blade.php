@@ -168,7 +168,7 @@
         <div class="float-end">
             {{-- @include('contests._add-contestant') --}}
         </div>
-        <h3>Contestants Score - Round {{$round->rounds}}</h3>
+        <h3 class="title">Contestants Score - Round {{$round->rounds}}</h3>
         <hr>
         <table class="table table-bordered table-striped">
             <thead>
@@ -221,7 +221,9 @@
 
 <style scoped>
 .title {
-    color: #ffbd59;
+    color:#1a202c;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #ffbd59, 1px -1px 0 #ffbd59, -1px 1px 0 #ffbd59, 1px 1px 0 #ffbd59;
 }
 
 .custom-table-row {

@@ -14,10 +14,12 @@ class ContestController extends Controller
 {
     public function index($eventId) {
         $contests = Contest::where('event_id', $eventId)->get();
+        $event = Event::findOrFail($eventId);
 
         return view('contests.index',[
             'contests' => $contests,
             'eventId' => $eventId,
+            'event' => $event,
         ]);
     }
 
