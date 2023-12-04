@@ -18,7 +18,6 @@ class RoundSeeder extends Seeder
 
         Round::create([
             'contest_id' => 1,
-            'rounds' => 1,
 
         ]);
 

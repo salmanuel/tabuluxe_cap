@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('rounds', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('contest_id')->unsigned();
-            $table->integer('rounds')->nullable();
-            $table->string('no_of_contestants')->nullable();
+            $table->bigInteger('next_round_id')->nullable()->unsigned();
+            $table->string('name')->nullable();
             $table->timestamps();
 
             $table->foreign('contest_id')->references('id')->on('contests')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('next_round_id')->references('id')->on('rounds')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

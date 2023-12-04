@@ -17,14 +17,6 @@ class Contest extends Model
         return $this->hasMany('App\Models\Judge');
     }
 
-    public function contestants() {
-        return $this->hasMany('App\Models\Contestant')->orderBy('number');
-    }
-
-    public function criterias() {
-        return $this->hasMany('App\Models\Criteria');
-    }
-
     public function rounds() {
         return $this->hasMany('App\Models\Round');
     }

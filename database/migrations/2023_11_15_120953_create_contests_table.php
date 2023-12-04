@@ -21,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('event_id')->unsigned()->nullable();
             $table->string('computation');
             $table->boolean('dancesports')->nullable()->default(false);
+            $table->bigInteger('active_round')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
         });

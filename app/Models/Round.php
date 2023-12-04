@@ -11,6 +11,14 @@ class Round extends Model
 
     protected $guarded = [];
 
+    public function contestants() {
+        return $this->hasMany('App\Models\Contestant');
+    }
+
+    public function criterias() {
+        return $this->hasMany('App\Models\Criteria');
+    }
+
     public function contest() {
         return $this->belongsTo('App\Models\Contest');
     }

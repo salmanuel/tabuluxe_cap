@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('number');
-            $table->string('remarks');
-            $table->bigInteger('contest_id')->unsigned();
+            $table->string('remarks')->nullable();
+            $table->bigInteger('round_id')->unsigned();
             $table->timestamps();
-            $table->foreign('contest_id')->references('id')->on('contests')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('round_id')->references('id')->on('rounds')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

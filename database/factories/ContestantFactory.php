@@ -16,13 +16,13 @@ class ContestantFactory extends Factory
      */
     public function definition()
     {
-        $contest = \App\Models\Contest::first();
+        $round = \App\Models\Round::first();
 
         return [
             'name' => $this->faker->name,
-            'number' => $contest->nextContestantNumber(),
+            'number' => $round->nextRoundNumber(),
             'remarks' => $this->faker->randomElement(['R&B','Ballad','Rock','Classical']),
-            'contest_id' => $contest->id
+            'round_id' => $round->id
         ];
     }
 }

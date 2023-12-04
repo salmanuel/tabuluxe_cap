@@ -37,23 +37,8 @@ class CriteriaSeeder extends Seeder
                 'name' => $crit['name'],
                 'description' => $crit['description'],
                 'weight' => $crit['weight'],
-                'contest_id' => 1,
+                'round_id' => 1,
             ]);
-
-            foreach($criteria->contest->contestants as $contestant) {
-                foreach($criteria->contest->judges as $judge) {
-                    foreach($criteria->contest->rounds as $round) {
-                        \App\Models\Score::create([
-                            'contestant_id' => $contestant->id,
-                            'judge_id' => $judge->id,
-                            'criteria_id' => $criteria->id,
-                            'round_id' => $round->id,
-                            'score' => rand($criteria->weight/2, $criteria->weight)
-                        ]);
-                    }
-                    
-                }
-            }
         }
     }
 }

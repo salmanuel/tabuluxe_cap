@@ -12,7 +12,7 @@ class Contestant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'number', 'remarks', 'contest_id'
+        'name', 'number', 'remarks', 'round_id'
     ];
 
     public function contest() {
@@ -21,7 +21,7 @@ class Contestant extends Model
 
     public function scoresFromJudge(Judge $judge) {
         return Score::where('judge_id', $judge->id)
-                ->where('contestant_id', $this->id)
+                ->where('round_id', $this->id)
                 ->get();
     }
 

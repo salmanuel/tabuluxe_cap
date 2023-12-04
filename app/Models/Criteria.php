@@ -9,9 +9,13 @@ class Criteria extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','description','weight', 'contest_id'];
+    protected $fillable = ['name','description','weight', 'round_id'];
 
-    public function contest() {
-        return $this->belongsTo('App\Models\Contest');
+    public function round() {
+        return $this->belongsTo('App\Models\Round');
+    }
+
+    public function contestants() {
+        return $this->hasMany('App\Models\Contestant');
     }
 }

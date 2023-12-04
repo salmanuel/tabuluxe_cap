@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('weight')->nullable();
-            $table->bigInteger('contest_id')->unsigned();
+            $table->bigInteger('round_id')->unsigned();
             $table->timestamps();
-            $table->foreign('contest_id')->references('id')->on('contests')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('round_id')->references('id')->on('rounds')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
