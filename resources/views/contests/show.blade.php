@@ -162,6 +162,7 @@
         </div>
     </div>
 </div>
+@if($contest->computation === 'Averaging')
 @foreach ($contest->rounds as $round)
 <div class="row">
     <div class="col">
@@ -210,6 +211,7 @@
 </div>
 
 @endforeach
+@endif
 
 <script>
     $(document).ready(function(){
