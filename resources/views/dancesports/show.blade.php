@@ -162,11 +162,11 @@
         </div>
     </div>
 </div>
-@foreach ($contest->rounds as $round)
+{{-- @foreach ($contest->rounds as $round)
 <div class="row">
     <div class="col">
         <div class="float-end">
-            {{-- @include('contests._add-contestant') --}}
+            @include('contests._add-contestant')
         </div>
         <h3 class="title">Contestants Score - Round {{$round->rounds}}</h3>
         <hr>
@@ -209,7 +209,7 @@
     </div>
 </div>
 
-@endforeach
+@endforeach --}}
 
 <script>
     $(document).ready(function(){

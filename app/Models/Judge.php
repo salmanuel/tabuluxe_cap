@@ -25,7 +25,7 @@ class Judge extends Model
     public function rank(Contestant $contestant) {
         $totals = [];
         $ranks = [];
-        foreach($this->contest->contestants as $cont) {
+        foreach($contestant->round->contestants as $cont) {
             $totals[] = Score::judgeTotal($this->id, $cont->id);
         }
 

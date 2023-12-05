@@ -16,13 +16,13 @@
         {!! Form::open(['url'=>'/contests/' . $contest->id . '/rounds', 'method'=>'post']) !!}
         <div class="modal-body">
             <div class="mb-3">
-                {!! Form::label("Number of Rounds") !!}
-                {!! Form::number("rounds", null, ['class'=>'form-control']) !!}
+                {!! Form::label("Round") !!}
+                {!! Form::number("number", null, ['class'=>'form-control']) !!}
             </div>
 
             <div class="mb-3">
-                {!! Form::label("Number of Contestants per Round") !!}
-                {!! Form::select("no_of_contestants",["half" => "1/2", "one_third" => "1/3", "one_fourth"=> "1/4"], null, ['class'=>'form-control']) !!}
+                {!! Form::label("Description") !!}
+                {!! Form::textarea("description", null, ['class'=>'form-control', 'rows' => 3]) !!}
             </div>
 {{-- 
             <div class="mb-3">

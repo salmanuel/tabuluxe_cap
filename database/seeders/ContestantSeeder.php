@@ -32,5 +32,13 @@ class ContestantSeeder extends Seeder
                 'number'=>1
             ],
         ];
+
+        foreach($cnt as $cont) {
+            \App\Models\Contestant::create([
+                'round_id' => $cont['round_id'],
+                'name' => $cont['name'],
+                'number' => $cont['number'],
+            ]);
+        }
     }
 }

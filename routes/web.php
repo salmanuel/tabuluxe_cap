@@ -78,5 +78,8 @@ Route::group(['middleware'=>'auth'], function() {
     Route::put('/dancesports/{id}', [DanceSportController::class, 'update'])->name('dancesports.update');
     Route::delete('/dancesports/{id}', [DanceSportController::class, 'destroy'])->name('dancesports.destroy');
 
+    Route::get('/rounds/{round}/{contest}', [RoundController::class, 'show']);
+
+
     Route::get('/logout',[SiteController::class, 'logout']);
 });

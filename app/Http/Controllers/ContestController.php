@@ -33,6 +33,8 @@ class ContestController extends Controller
             'schedule' => 'string|required',
             'venue' => 'string|required',
             'computation' => 'string|required',
+            'number' => 'numeric|required',
+            'description' => 'string|required'
         ]);
 
         $contest = Contest::create([
@@ -45,7 +47,8 @@ class ContestController extends Controller
 
         Round::create([
             'contest_id' => $contest->id,
-            'rounds' => 1,
+            'number' => $request->number,
+            'description' => $request->description,
         ]);
 
         return redirect('/events/' . $contest->event_id . '/contests')->with('Info', 'A new contest has been created.');
@@ -54,40 +57,40 @@ class ContestController extends Controller
 
     public function show(Contest $contest) {
 
-        $computation = [];
+        // $computation = [];
 
 
-        $allSumOfRanks=[];
+        // $allSumOfRanks=[];
 
-        foreach($contest->contestants as $contestant) {
-            $row = [];
-            $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
-            $sumOfRanks=0;
+        // foreach($contest->contestants as $contestant) {
+        //     $row = [];
+        //     $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
+        //     $sumOfRanks=0;
 
-            foreach($contest->judges as $judge) {
-                $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
-                $row[] = $rank = $judge->rank($contestant);
-                $sumOfRanks += $rank;
+        //     foreach($contest->judges as $judge) {
+        //         $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
+        //         $row[] = $rank = $judge->rank($contestant);
+        //         $sumOfRanks += $rank;
 
-                // $decryptedPasscode = Crypt::decryptString($judge->password);
-                // $judge->setAttribute('decryptedPasscode', $decryptedPasscode);
-            }
+        //         // $decryptedPasscode = Crypt::decryptString($judge->password);
+        //         // $judge->setAttribute('decryptedPasscode', $decryptedPasscode);
+        //     }
 
-            $row['sumOfRank'] = $sumOfRanks;
+        //     $row['sumOfRank'] = $sumOfRanks;
 
-            $allSumOfRanks[] = $sumOfRanks;
-            $computation[$contestant->id] = $row;
-        }
+        //     $allSumOfRanks[] = $sumOfRanks;
+        //     $computation[$contestant->id] = $row;
+        // }
 
-        foreach($contest->contestants as $contestant) {
-            $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
-        }
+        // foreach($contest->contestants as $contestant) {
+        //     $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
+        // }
 
         $rounds = $contest->rounds;
 
         return view('contests.show', [
             'contest' => $contest,
-            'computation' => $computation,
+            // 'computation' => $computation,
             'rounds' => $rounds
 
         ]);

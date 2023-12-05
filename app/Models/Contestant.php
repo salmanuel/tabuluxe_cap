@@ -15,8 +15,8 @@ class Contestant extends Model
         'name', 'number', 'remarks', 'round_id'
     ];
 
-    public function contest() {
-        return $this->belongsTo('App\Models\Contest');
+    public function round() {
+        return $this->belongsTo('App\Models\Round');
     }
 
     public function scoresFromJudge(Judge $judge) {
