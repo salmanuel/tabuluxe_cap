@@ -43,14 +43,15 @@ class RoundController extends Controller
             'description' => 'string|required',
         ]);
 
+        $prevRound = $contest->getLastRound();
+
         $round=Round::create([
             'number' => $request->number,
             'description' => $request->description,
             'contest_id' => $contest->id,
         ]);
 
-        
-        $prevRound = $contest->getLastRound();
+
 
         if ($prevRound) {
             $prevRound->next_round_id = $round->id;
@@ -108,7 +109,7 @@ class RoundController extends Controller
         ]);
     }
 
-    public function nextRound(Round $round) 
+    public function nextRound(Round $round)
     {
         return view('/rounds' . $round->next_round_id);
     }

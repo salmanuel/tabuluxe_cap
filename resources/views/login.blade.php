@@ -6,18 +6,18 @@
     <div class="col-md-4">
         <div class="bg-login p-4 rounded">
             <div>
-                <h1 class="text-center text-white mb-4 fs-4">Admin Login</h1>
+                <h1 class="text-center text-warning mb-4 fs-4">Admin Login</h1>
                 <hr class="bg-white">
 
                 {!! Form::open(['url'=>'/login', 'method'=>'post']) !!}
 
                 <div class="mb-3">
-                    {!! Form::label("email", "Username", ['class' => 'text-white fs-6']) !!}
+                    {!! Form::label("email", "Username", ['class' => 'text-warning fs-6']) !!}
                     {!! Form::text("email", null, ['class'=>'form-control form-control-sm']) !!}
                 </div>
 
                 <div class="mb-3">
-                    {!! Form::label("password", "Password", ['class' => 'text-white fs-6']) !!}
+                    {!! Form::label("password", "Password", ['class' => 'text-warning fs-6']) !!}
                     {!! Form::password("password", ['class'=>'form-control form-control-sm']) !!}
                 </div>
 
@@ -46,7 +46,7 @@ form {
 form input[type="text"],
 form input[type="password"],
 form label {
-    color: #fff; /* Text color for inputs and labels */
+    color: #ffffff; /* Text color for inputs and labels */
 }
 
 /* Override button color */

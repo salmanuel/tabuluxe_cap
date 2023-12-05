@@ -34,6 +34,6 @@ class Contest extends Model
 
     public function getLastRound() {
         return Round::where('contest_id', $this->id)
-            ->orderBy('number','asc')->first();
+            ->orderBy('number','desc')->first();
     }
 }

@@ -23,8 +23,8 @@
 
         <div class="container-fluid">
             <div class="row">
-            <div class="col-1 vh-100 " style="width: 12.67%">
-                
+            <div class="col-1 vh-100 " style="width: 12.10%">
+
                     <div class="sidebar">
                         <div class="sidebar-brand mb-3 text-center">
                             <img src="/images/logo.png" alt="Logo" class="w-100 h-auto mx-auto d-block rounded-circle border border-3 border-warning p-2 mt-2 mb-4" style="max-width: 125px; max-height: 125px; object-fit: cover;">
@@ -57,8 +57,8 @@
                         </ul>
                     </div>
                 </div>
-                
-           
+
+
             <div class="col-11 bg-secondary" style="width: 87.33%">
                 @include('flash-message')
 
@@ -81,7 +81,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 12.67%; 
+    width: 12.67%;
     background-color: #080d32;
 
 }
@@ -110,7 +110,7 @@
 }
 
 .main-nav a:hover {
-    background: linear-gradient(to right, #ffbd59, #b2a7a7); 
+    background: linear-gradient(to right, #ffbd59, #b2a7a7);
     color: #080d32;
 }
 
