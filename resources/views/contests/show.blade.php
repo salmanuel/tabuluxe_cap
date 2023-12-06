@@ -2,9 +2,14 @@
 
 @section('content')
 <div class="mt-2">
-    <div class="d-flex align-items-center">
-        <h1 class="title">{{$contest->title}}</h1> 
-        <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button>
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            <h1 class="title">{{$contest->title}}</h1> 
+            <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button>
+        </div>
+        <div  class="d-flex justify-content-end">
+            <a href="" class="btn">Back</a>
+        </div>
     </div>
     <hr>
 </div>

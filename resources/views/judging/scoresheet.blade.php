@@ -24,7 +24,7 @@
             <thead>
                 <tr class="custom-table-row">
                     <th>Contestants</th>
-                    @foreach($judge->contest->criterias as $criteria)
+                    @foreach($judge->round->criterias as $criteria)
                         <th>{{$criteria->name}} ({{$criteria->weight}})</th>
                     @endforeach
                     <th>Total</th>

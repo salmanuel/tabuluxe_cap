@@ -11,6 +11,7 @@ use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\RoundController;
 use App\Http\Controllers\DanceSportController;
+use App\Models\Round;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,9 +53,9 @@ Route::group(['middleware'=>'auth'], function() {
 
 
     Route::post('/events/{eventId}/contests', [ContestController::class, 'store']);
-    Route::post("/contests/{contest}/contestants", [ContestantController::class, 'store']);
+    Route::post("/rounds/{round}/{contest}/contestants", [ContestantController::class, 'store']);
     Route::post("/contests/{contest}/judges", [JudgeController::class, 'store']);
-    Route::post("/contests/{contest}/criterias", [CriteriaController::class, 'store']);
+    Route::post("/rounds/{round}/{contest}/criterias", [CriteriaController::class, 'store']);
     Route::post("/contests/{contest}/rounds", [RoundController::class, 'store']);
 
     Route::get('/contestants/{contestant}',[ContestantController::class, 'show']);
@@ -78,7 +79,9 @@ Route::group(['middleware'=>'auth'], function() {
     Route::put('/dancesports/{id}', [DanceSportController::class, 'update'])->name('dancesports.update');
     Route::delete('/dancesports/{id}', [DanceSportController::class, 'destroy'])->name('dancesports.destroy');
 
-    Route::get('/rounds/{round}/{contest}', [RoundController::class, 'show']);
+    Route::get('/rounds/{round}/{contest}', [RoundController::class, 'show'])->name('rounds.preview');
+    Route::get('/rounds/{round}/{contest}/select', [RoundController::class, 'select']);
+    Route::post('/rounds/{round}/{contest}', [RoundController::class, 'startNextRound']);
 
 
     Route::get('/logout',[SiteController::class, 'logout']);

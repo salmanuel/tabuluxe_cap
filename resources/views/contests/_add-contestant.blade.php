@@ -13,7 +13,7 @@
           <h5 class="modal-title" id="addContestantModalLabel">Add Contestant</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        {!! Form::open(['url'=>'/contests/' . $contest->id . '/contestants', 'method'=>'post']) !!}
+        {!! Form::open(['url'=>'/rounds/' . $round->id . '/' . $contest->id . '/contestants', 'method'=>'post']) !!}
         <div class="modal-body">
             <div class="mb-3">
                 {!! Form::label("name") !!}

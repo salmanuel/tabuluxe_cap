@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contest;
 use App\Models\Contestant;
+use App\Models\Round;
 use App\Models\Score;
 
 class ContestantController extends Controller
 {
-    public function store(Request $request, Contest $contest) {
+    public function store(Request $request, Round $round, Contest $contest) {
         $request->validate([
             'name' => 'string|required',
             'number' => 'required|numeric',
@@ -20,12 +21,12 @@ class ContestantController extends Controller
             'name' => $request->name,
             'number' => $request->number,
             'remarks' => $request->remarks,
-            'contest_id' => $contest->id,
+            'round_id' => $round->id,
 
         ]);
 
-        foreach($contest->judges as $judge) {
-            foreach($contest->criterias as $criteria) {
+        foreach($round->contest->judges as $judge) {
+            foreach($round->criterias as $criteria) {
                 foreach($contest->rounds as $round) {
                     Score::create([
                         'contestant_id' => $contestant->id,
@@ -40,7 +41,7 @@ class ContestantController extends Controller
         if ($contest->dancesports) {
             return redirect('/dancesports/' . $contest->id)->with('Info', 'A new contestant has been added.');
         } else {
-            return redirect('/contests/' . $contest->id)->with('Info', 'A new contestant has been added.');
+            return redirect('/rounds/'. $round->id . '/' . $contest->id)->with('Info', 'A new contestant has been added.');
         }
     }
 

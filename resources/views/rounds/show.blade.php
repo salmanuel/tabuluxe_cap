@@ -14,7 +14,7 @@
             <div class="card h-100">
                 <div class="card-body shadow">
                     <div class="float-end">
-                        {{-- @include('contests._add-contestant') --}}
+                        @include('contests._add-contestant')
                     </div>
                     <h5>Contestants</h5>
                     <hr>
@@ -48,7 +48,7 @@
             <div class="card h-100">
                 <div class="card-body shadow">
                     <div class="float-end">
-                        {{-- @include('contests._add-criteria') --}}
+                        @include('contests._add-criteria')
                     </div>
                     <h5>Criterias</h5>
                     <hr>
@@ -91,7 +91,7 @@
         {{-- @foreach ($contest->rounds as $round) --}}
             <div class="row">
                 <div class="col">
-                    <h3 class="con_rounds">Contestants Score - Round {{$round->rounds}}</h3>
+                    <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
                     <hr>
                     <table class="table table-bordered table-striped">
                         <thead>
@@ -135,7 +135,7 @@
             <div class="d-flex justify-content-center">
                 <div>
                     {{-- @foreach ($contest->rounds as $round) --}}
-                        <a href="{{url('/rounds/'. $round->next_round_id . '/' . $contest->id )}}" class="btn btn-sm btn-primary p-2 mb-4">Preparation for {{$round->description}}</a>
+                        <a href="{{url('/rounds/'. $round->id . '/' . $contest->id . '/select' )}}" class="btn btn-sm btn-primary p-2 mb-4">Preparation for Next</a>
                     {{-- @endforeach --}}
                     {{-- <button class="btn btn-sm btn-primary p-3 mb-4">Preparation for Next Round</button> --}}
                 </div>

@@ -33,6 +33,7 @@ class JudgingController extends Controller
         if(!$token) return redirect('/judging');
 
         $judge = Judge::where('access_token', $token)->first();
+        
 
         return view('judging.scoresheet',[
             'judge' => $judge

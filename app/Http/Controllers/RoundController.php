@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contest;
+use App\Models\Contestant;
 use App\Models\Judge;
 use App\Models\Round;
 use App\Models\Score;
@@ -50,8 +51,6 @@ class RoundController extends Controller
             'description' => $request->description,
             'contest_id' => $contest->id,
         ]);
-
-
 
         if ($prevRound) {
             $prevRound->next_round_id = $round->id;
@@ -109,9 +108,18 @@ class RoundController extends Controller
         ]);
     }
 
-    public function nextRound(Round $round)
+    public function select(Round $round, Contest $contest)
     {
-        return view('/rounds' . $round->next_round_id);
+        $data = $round->computeOverall();
+
+        // dd($data);
+
+        return view('rounds/selection',[
+            'data' => $data,
+            'round'=>$round,
+            'contest' => $contest
+        ]);
+
     }
 
     /**
@@ -146,5 +154,27 @@ class RoundController extends Controller
     public function destroy(Round $round)
     {
         //
+    }
+
+    public function startNextRound(Round $round, Request $request) {
+        $contest = $round->contest;
+
+        $contest->active_round = $round->id;
+        $contest->save();
+
+        foreach($request->check as $index=>$check) {
+            $name = $request->name[$index];
+            $remarks = $request->remarks[$index];
+            $number = $request->number[$index];
+
+            $cnt = Contestant::create([
+                'name' => $name,
+                'number' => $number,
+                'remarks' => $remarks,
+                'round_id' => $round->id
+            ]);
+        }
+
+        return redirect('/rounds/' . $round->id . '/' . $contest->id);
     }
 }

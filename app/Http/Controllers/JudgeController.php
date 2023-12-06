@@ -25,19 +25,6 @@ class JudgeController extends Controller
             'access_token' => Str::random(64)
         ]);
 
-        foreach($contest->contestants as $contestant) {
-            foreach($contest->criterias as $criteria) {
-                foreach($contest->rounds as $round) {
-                    Score::create([
-                        'contestant_id' => $contestant->id,
-                        'criteria_id' => $criteria->id,
-                        'judge_id' => $judge->id,
-                        'round_id' => $round->id
-                    ]);
-                }
-            }
-        }
-
         // return redirect('/contests/' . $contest->id)->with('Info','A new Judge has been created.');
         if ($contest->dancesports) {
             return redirect('/dancesports/' . $contest->id)->with('Info', 'A new Judge has been created.');

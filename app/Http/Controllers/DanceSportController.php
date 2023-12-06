@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contest;
 use App\Models\Criteria;
 use App\Models\Judge;
+use App\Models\Round;
 use Illuminate\Http\Request;
 
 class DanceSportController extends Controller
@@ -26,15 +27,21 @@ class DanceSportController extends Controller
             'title' => 'string|required',
             'schedule' => 'string|required',
             'venue' => 'string|required',
-            'computation' => 'string|required',
+            // 'computation' => 'string|required',
         ]);
 
         $contest = Contest::create([
             'title' => $request->title,
             'schedule' => $request->schedule,
             'venue' => $request->venue,
-            'computation' => $request->computation,
+            'computation' => 'Ranking',
             'dancesports' => true
+        ]);
+
+        $round = Round::create([
+            'contest_id' => $contest->id,
+            'number' => $request->number,
+            'description' => $request->description,
         ]);
         
         if($contest->title = 'Latin') {
@@ -42,27 +49,27 @@ class DanceSportController extends Controller
                 [
                     'name' => 'Cha Cha',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'name' => 'Samba',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'name' => 'Rumba',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'name' => 'Paso Doble',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'name' => 'Jive',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
 
             ];
@@ -77,27 +84,27 @@ class DanceSportController extends Controller
                 [
                     'name' => 'Slow Waltz',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'Tango',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'Viennese Waltz',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'Foxtrot',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
                 ],
                 [
                     'Quickstep',
                     'description' => 'Dance',
-                    'contest_id' => $contest->id
+                    'round_id' => $round->id
 
                 ]
             ];

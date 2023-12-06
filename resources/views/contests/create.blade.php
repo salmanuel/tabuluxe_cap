@@ -39,9 +39,6 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
 
             <button type="submit" class="btn btn-success btn-lg d-block mx-auto fs-6">
                 Create Contest

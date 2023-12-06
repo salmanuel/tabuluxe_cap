@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -59,7 +58,7 @@
                 </div>
 
 
-            <div class="col-11 bg-secondary" style="width: 87.33%">
+            <div class="col-11 bg-secondary" style="width: 87.88%">
                 @include('flash-message')
 
                 @yield('content')

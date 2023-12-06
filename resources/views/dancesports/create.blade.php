@@ -23,9 +23,18 @@
                 {!! Form::label("venue", "Venue", ['class' => ' fs-6']) !!}
                 {!! Form::text("venue", null, ['class'=>'form-control form-control-sm text-dark']) !!}
             </div>
-            <div class="mb-3">
-                {!! Form::label("computation", "Computation Type", ['class' => ' fs-6']) !!}
-                {!! Form::select("computation", ['Average' => 'Average', 'Ranking' => 'Ranking', 'Complex' => 'Complex'], null, ['class'=>'form-control form-control-sm text-dark']) !!}
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>Initial Round</h6>
+                    <div class="mb-3 d-flex align-items-center">
+                        {!! Form::label("number", "Round:", ['class' => 'fs-6 me-5 mb-0']) !!}
+                        {!! Form::number("number", null, ['class'=>'form-control form-control-sm text-dark ms-1']) !!}
+                    </div>
+                    <div class="mb-3 d-flex align-items-center">
+                        {!! Form::label("description", "Description:", ['class' => 'fs-6 me-3 mb-0']) !!}
+                        {!! Form::textarea("description", null, ['class'=>'form-control form-control-sm text-dark', 'rows' => 3]) !!}
+                    </div>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-success btn-lg d-block mx-auto fs-6">

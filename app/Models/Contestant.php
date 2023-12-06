@@ -31,4 +31,10 @@ class Contestant extends Model
                 ->where('criteria_id', $criteriaId)
                 ->first();
     }
+
+    public function getTotalScore(Judge $judge) {
+        return Score::where('judge_id', $judge->id)
+                ->where('contestant_id', $this->id)
+                ->sum('score');
+    }
 }
