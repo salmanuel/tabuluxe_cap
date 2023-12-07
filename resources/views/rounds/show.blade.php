@@ -3,7 +3,7 @@
 @section('content')
 <div class="mt-2">
     <div class="d-flex align-items-center">
-        <h1 class="title">{{$round->description}}</h1> 
+        <h1 class="title">{{$round->description}}</h1>
         {{-- <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button> --}}
     </div>
     <hr>
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-7 mb-3">
             <div class="card h-100">
                 <div class="card-body shadow">
@@ -89,48 +89,94 @@
         </div>
 
         {{-- @foreach ($contest->rounds as $round) --}}
-            <div class="row">
-                <div class="col">
-                    <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
-                    <hr>
-                    <table class="table table-bordered table-striped">
-                        <thead>
+
+        @if ($contest->computation === "Average")
+        <div class="row">
+            <div class="col">
+                <h3 class="con_rounds">Contestants Score - {{ $round->description }}</h3>
+                <hr>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="custom-table-row">
+                            <th rowspan="2">Name</th>
+                            @foreach($contest->judges as $judge)
+                                <th class="text-center" colspan="1">{{ $judge->name }}</th>
+                            @endforeach
+                            <th class="text-center" rowspan="2">Average Score</th>
+                            <th class="text-center" rowspan="2">Final Rank</th>
+                            <th rowspan="2" class="text-center">...</th>
                             <tr class="custom-table-row">
-                                <th rowspan="2">Name</th>
-                                @foreach($contest->judges as $judge)
-                                <th class="text-center" colspan="2">{{$judge->name}}</th>
-                                @endforeach
-                                <th class="text-center" rowspan="2">Sum of Ranks</th>
-                                <th class="text-center" rowspan="2">Final Rank</th>
-                                <th rowspan="2" class="text-center">...</th>
-                                <tr class="custom-table-row">
                                 @foreach($contest->judges as $judge)
                                     <th class="text-center">Score</th>
-                                    <th class="text-center">Rank</th>
+                                    {{-- <th class="text-center">Rank</th> --}}
                                 @endforeach
-
-                                </tr>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($computation as $id=>$row)
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($computation as $id => $row)
 
-                            <tr class="text-white">
-                                @foreach($row as $rw)
-                                    <td class="text-center text-white">{!!$rw !!}</td>
-                                @endforeach
-                                <td class="text-center">
-                                    <a href="{{url('/contestants/' . $id)}}" class="btn btn-sm btn-secondary">
-                                        <i class="fa fa-folder-open"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
+                        <tr class="text-white">
+                            @foreach($row as $rw)
+                                <td class="text-center text-white">{!! $rw !!}</td>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                            <td class="text-center">
+                                <a href="{{ url('/contestants/' . $id) }}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-folder-open"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+        </div>
+    @endif
+
+
+        {{-- <div class="row">
+            <div class="col">
+                <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
+                <hr>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="custom-table-row">
+                            <th rowspan="2">Name</th>
+                            @foreach($contest->judges as $judge)
+                            <th class="text-center" colspan="2">{{$judge->name}}</th>
+                            @endforeach
+                            <th class="text-center" rowspan="2">Sum of Ranks</th>
+                            <th class="text-center" rowspan="2">Final Rank</th>
+                            <th rowspan="2" class="text-center">...</th>
+                            <tr class="custom-table-row">
+                            @foreach($contest->judges as $judge)
+                                <th class="text-center">Score</th>
+                                <th class="text-center">Rank</th>
+                            @endforeach
+
+                            </tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($computation as $id=>$row)
+
+                        <tr class="text-white">
+                            @foreach($row as $rw)
+                                <td class="text-center text-white">{!!$rw !!}</td>
+                            @endforeach
+                            <td class="text-center">
+                                <a href="{{url('/contestants/' . $id)}}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-folder-open"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div> --}}
 
             <div class="d-flex justify-content-center">
                 <div>
@@ -151,23 +197,23 @@
         font-weight: bold;
         text-shadow: -1px -1px 0 #ffbd59, 1px -1px 0 #ffbd59, -1px 1px 0 #ffbd59, 1px 1px 0 #ffbd59;
     }
-    
+
     .custom-table-row {
         text-align: left;
-        font-size: 0.75rem; 
-        line-height: 1.5rem; 
-        font-weight: bold; 
-        color: #ffffff; 
-        text-transform: uppercase; 
-        letter-spacing: 0.1em; 
+        font-size: 0.75rem;
+        line-height: 1.5rem;
+        font-weight: bold;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
         background-color: #1a202c;
     }
-    
+
     .card-body {
         background-color: #1a202c;
         color: #ffffff
     }
-    
+
     .con_rounds {
         color:#1a202c;
         font-weight: bold;
