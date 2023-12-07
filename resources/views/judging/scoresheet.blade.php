@@ -5,7 +5,7 @@
     <div class="row mt-4">
         <div class="col">
             <h1 class="mb-0 title">{{$judge->contest->title}}</h1>
-            <p class="text-white">{{$judge->contest->venue}}</p>
+            <p class="text-white">Venue: {{$judge->contest->venue}}</p>
         </div>
         <div class="col text-end">
             <h3 class="mb-0 title">Judge: {{$judge->name}}</h3>
@@ -28,7 +28,13 @@
                         <th>{{$criteria->name}} ({{$criteria->weight}})</th>
                     @endforeach
                     <th>Total</th>
+                    @if($judge->contest->computation === "Ranking")
                     <th>Rank</th>
+                    @endif
+                    
+                    @if($judge->contest->computation === "Average")
+                    <th>Average</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -51,9 +57,22 @@
                         </td>
                     @endforeach
                         <td class="text-center text-white">{{\App\Models\Score::judgeTotal($judge->id, $contestant->id)}}</td>
+
+                        @if($judge->contest->computation === "Ranking")
                         <td class="text-center text-white">
                             {{$judge->rank($contestant)}}
                         </td>
+                        @endif
+                        
+                        @if($judge->contest->computation === "Average")
+                        <td class="text-center text-white">
+                            @php
+                                $totalScore = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
+                                $averageScore = count($judge->contest->judges) > 0 ? $totalScore / count($judge->contest->judges) : 0;
+                                echo number_format((float)$averageScore, 2, '.', ''); // Displaying average score with 2 decimal places
+                            @endphp
+                        </td>
+                        @endif
                 </tr>
                 @endforeach
             </tbody>

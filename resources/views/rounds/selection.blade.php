@@ -3,7 +3,7 @@
 @section('content')
 <div class="mt-2">
     <div class="d-flex align-items-center">
-        <h1 class="title">Preparation</h1> 
+        <h1 class="title">Selection of Contestants</h1> 
     </div>
     <hr>
     <div class="row d-flex justify-content-center align-items-stretch">

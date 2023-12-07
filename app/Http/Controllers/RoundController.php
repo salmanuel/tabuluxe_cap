@@ -46,23 +46,19 @@ class RoundController extends Controller
 
         $prevRound = $contest->getLastRound();
 
-        $round = Round::create([
+        $round=Round::create([
             'number' => $request->number,
             'description' => $request->description,
             'contest_id' => $contest->id,
         ]);
-
-        // $contest = $round->contest;
-
-        // $contest->active_round = $round->id;
-        // $contest->save();
 
         if ($prevRound) {
             $prevRound->next_round_id = $round->id;
             $prevRound->save();
         }
 
-        return redirect('/contests/' . $contest->id)->with('Info', 'A new Round has been added.');
+        return redirect('/contests/' . $contest->id)->with('Info','A new Round has been added.');
+
     }
 
     /**
@@ -73,38 +69,77 @@ class RoundController extends Controller
      */
     public function show(Round $round, Contest $contest)
     {
-        $computation = [];
-        $allAverageScores = [];
+        if($contest->computation === "Ranking") {
+            $computation = [];
 
-        foreach ($round->contestants as $contestant) {
-            $row = [];
-            $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
 
-            $totalScores = 0;
+            $allSumOfRanks=[];
 
-            foreach ($contest->judges as $judge) {
-                $score = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
-                $row[] = $score;
-                $totalScores += $score;
+            foreach($round->contestants as $contestant) {
+                $row = [];
+                $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
+                $sumOfRanks=0;
+
+                foreach($contest->judges as $judge) {
+                    $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
+                    $row[] = $rank = $judge->rank($contestant);
+                    $sumOfRanks += $rank;
+
+                    // $decryptedPasscode = Crypt::decryptString($judge->password);
+                    // $judge->setAttribute('decryptedPasscode', $decryptedPasscode);
+                }
+
+                $row['sumOfRank'] = $sumOfRanks;
+
+                $allSumOfRanks[] = $sumOfRanks;
+                $computation[$contestant->id] = $row;
+            }
+
+            foreach($round->contestants as $contestant) {
+                $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
+            }
+
+        } else {
+            $computation = [];
+            $allAverageScores = [];
+
+            foreach ($round->contestants as $contestant) {
+                $row = [];
+                $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
+
+                $totalScores = 0;
+
+                foreach ($contest->judges as $judge) {
+                    $score = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
+                    $row[] = $score;
+                    $totalScores += $score;
+                }
+
+
+                $averageScore = count($contest->judges) > 0 ? $totalScores / count($contest->judges) : 0;
+                $row[] = $totalScores;
+
+                $formattedAverageScore = number_format($averageScore, 2) . ' %';
+                $row['averageScore'] = $formattedAverageScore;
+
+
+                $computation[$contestant->id] = $row;
+                $allAverageScores[$contestant->id] = $averageScore;
             }
 
 
-            $averageScore = count($contest->judges) > 0 ? $totalScores / count($contest->judges) : 0;
-            $row['averageScore'] = $averageScore;
-
-            $computation[$contestant->id] = $row;
-            $allAverageScores[$contestant->id] = $averageScore;
-        }
+            arsort($allAverageScores);
 
 
-        arsort($allAverageScores);
+            // $rank = 1;
+            // foreach ($allAverageScores as $contestantId => $averageScore) {
+            //     $computation[$contestantId]['finalRank'] = $rank;
+            //     $rank++;
+            // }
+        };
+        
 
-
-        $rank = 1;
-        foreach ($allAverageScores as $contestantId => $averageScore) {
-            $computation[$contestantId]['finalRank'] = $rank;
-            $rank++;
-        }
+        
 
         $judges = $contest->judges;
 
@@ -122,11 +157,12 @@ class RoundController extends Controller
 
         // dd($data);
 
-        return view('rounds/selection', [
+        return view('rounds/selection',[
             'data' => $data,
-            'round' => $round,
+            'round'=>$round,
             'contest' => $contest
         ]);
+
     }
 
     /**
@@ -137,7 +173,9 @@ class RoundController extends Controller
      */
     public function edit(Round $round)
     {
-        //
+        return view('rounds.edit', [
+            'round' => $round
+        ]);
     }
 
     /**
@@ -147,22 +185,15 @@ class RoundController extends Controller
      * @param  \App\Models\Round  $round
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Contest $contest)
-    {
-        $validatedData = $request->validate([
+    public function update(Round $round, Request $request) {
+        $request->validate([
             'number' => 'string|required',
             'description' => 'string|required',
-
         ]);
 
-        $round = Round::findOrFail($id);
-        $round->number = $validatedData['number'];
-        $round->description = $validatedData['description'];
-        // $round->event_id = $eventId;
-        $round->save();
+        $round->update($request->only('number','description'));
 
-        return redirect('/contests/' . $contest->id . '/contests')->with('Info', 'Updated Successfully.');
-
+        return redirect('/contests/' . $round->contest->id)->with('Info','The details of round ' . $round->name . ' has been updated.');
     }
 
     /**
@@ -171,20 +202,20 @@ class RoundController extends Controller
      * @param  \App\Models\Round  $round
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Round $round)
+    public function destroy($id)
     {
-        //
+        $round = Round::findOrFail($id);
+        $round->delete();
+        return redirect('/contests/' . $round->contest->id)->with('Info', 'Deleted Successfully.');
     }
-    
 
-    public function startNextRound(Round $round, Request $request)
-    {
+    public function startNextRound(Round $round, Request $request) {
         $contest = $round->contest;
 
         $contest->active_round = $round->id;
         $contest->save();
 
-        foreach ($request->check as $index => $check) {
+        foreach($request->check as $index=>$check) {
             $name = $request->name[$index];
             $remarks = $request->remarks[$index];
             $number = $request->number[$index];
@@ -196,13 +227,13 @@ class RoundController extends Controller
                 'round_id' => $round->id
             ]);
 
-            foreach($round->criterias as $crit) {
-                foreach($round->contest->judges as $judge){
-                    Score::create([
-                        'judge_id' => $judge->id,
-                        'criteria_id' => $crit->id,
-                        'contestant_id' => $cnt->id
-                    ]);
+            foreach($round->contest->judges as $judge) {
+                foreach($round->criterias as $criteria) {
+                        Score::create([
+                            'contestant_id' => $cnt->id,
+                            'criteria_id' => $criteria->id,
+                            'judge_id' => $judge->id,
+                        ]);
                 }
             }
         }

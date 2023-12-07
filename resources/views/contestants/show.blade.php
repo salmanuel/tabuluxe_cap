@@ -6,17 +6,19 @@
 @section('content')
 
 <div class="float-end mt-3">
-    {{-- <a href="{{url('/rounds/' . $contestant->round->id . '/' . $contestant->contest->id)}}" class="btn btn-success">
-        <i class="fa fa-arrow-left"></i> Back to Contest
-    </a> --}}
+    <div class="float-end mt-3">
+        <a href="{{url('/rounds/' . $contestant->round->id . '/' . $contestant->round->contest->id)}}" class="btn btn-warning">
+            <i class="fa fa-arrow-left"></i> Back to round
+        </a>
+    </div>
 </div>
 
 <h1 class="mb-0">{{$contestant->name}}</h1>
-{{-- <p>
-    {{$contestant->contest->title}}
-    {{$contestant->contest->schedule}} - {{$contestant->contest->venue}}
+<p>
+    {{$contestant->round->contest->title}}
+    {{$contestant->round->contest->schedule}} - {{$contestant->round->contest->venue}}
 </p>
-<hr> --}}
+<hr>
 
 <div class="row">
     <div class="col-md-3">
@@ -61,7 +63,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($contestant->contest->judges as $judge)
+                @foreach($contestant->round->contest->judges as $judge)
                 <tr>
                     <?php $total = 0; ?>
                     <td>{{$judge->name}}</td>

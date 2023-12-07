@@ -83,7 +83,9 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/rounds/{round}/{contest}', [RoundController::class, 'show'])->name('rounds.preview');
     Route::get('/rounds/{round}/{contest}/select', [RoundController::class, 'select']);
     Route::post('/rounds/{round}/{contest}', [RoundController::class, 'startNextRound']);
-    Route::put('/rounds/{round}/contests/{contest}', [RoundController::class, 'update'])->name('rounds.update');
+    Route::get('/rounds/{round}', [RoundController::class, 'edit']);
+    Route::put('/rounds/{round}', [RoundController::class, 'update'])->name('rounds.update');
+    // Route::delete('/rounds/{round}/contests/{contest}', [RoundController::class, 'destroy'])->name('rounds.destroy');
 
 
     Route::get('/logout',[SiteController::class, 'logout']);

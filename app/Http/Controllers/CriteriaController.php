@@ -28,12 +28,21 @@ class CriteriaController extends Controller
             foreach($round->contest->judges as $judge) {
                 Score::create([
                     'contestant_id' => $contestant->id,
+                    'criteria_id' => $criteria->id,
                     'judge_id' => $judge->id,
-                    // 'round_id' => $round->id,
-                    'criteria_id' => $criteria->id
                 ]);
             }
         }
+
+        // foreach($round->contest->judges as $judge) {
+        //     foreach($round->criterias as $criteria) {
+        //             Score::create([
+        //                 'contestant_id' => $contestant->id,
+        //                 'criteria_id' => $criteria->id,
+        //                 'judge_id' => $judge->id,
+        //             ]);
+        //     }
+        // }
 
         if ($contest->dancesports) {
             return redirect('/dancesports/' . $contest->id)->with('Info', 'A criteria has been added.');

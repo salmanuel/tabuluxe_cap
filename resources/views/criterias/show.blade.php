@@ -1,24 +1,24 @@
-<?php
+{{-- <?php
 
 $judges = $criteria->contest->judges;
 
-?>
+?> --}}
 
 @extends('base')
 
 @section('content')
 
 <div class="float-end mt-3">
-    <a href="{{url('/contests/' . $criteria->contest->id)}}" class="btn btn-success">
-        <i class="fa fa-arrow-left"></i> Back to contest
+    <a href="{{url('/rounds/' . $criteria->round->id . '/' . $criteria->round->contest->id)}}" class="btn btn-warning">
+        <i class="fa fa-arrow-left"></i> Back to round
     </a>
 </div>
 
 <h1 class="mb-0">Criteria: {{$criteria->name}}</h1>
 <p>
-    <div class="d-inline-block">{{$criteria->contest->title}}</div>
-    <div class="d-inline-block">{{$criteria->contest->schedule}}</div>
-    <div class="d-inline-block">{{$criteria->contest->venue}}</div>
+    <div class="d-inline-block">{{$criteria->round->contest->title}}</div>
+    <div class="d-inline-block">{{$criteria->round->contest->schedule}}</div>
+    <div class="d-inline-block">{{$criteria->round->contest->venue}}</div>
 </p>
 <hr>
 
@@ -47,7 +47,7 @@ $judges = $criteria->contest->judges;
 
         {!! Form::close() !!}
     </div>
-    <div class="col-md-9">
+    {{-- <div class="col-md-9">
         <h3>Scoring Summary: {{$criteria->name}}</h3>
         <hr>
         <table class="table table-bordered table-striped">
@@ -77,7 +77,7 @@ $judges = $criteria->contest->judges;
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </div> --}}
 </div>
 
 @endsection

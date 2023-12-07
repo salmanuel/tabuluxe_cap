@@ -40,10 +40,9 @@
                             </td>
                             <td class="text-center text-white">{{$round->description}}</td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editRndModal{{$round->id}}">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                @include('contests.edit-round')
+                                <a href="{{url('/rounds/' . $round->id)}}" class="btn btn-sm btn-secondary">
+                                    <i class="fa fa-pen-to-square"></i>
+                                </a>
 
                                 {{-- <a href="{{url('/rounds/' . $round->id)}}" class="btn btn-sm btn-secondary px-2">
                                     <i class="fa-solid fa-pen-to-square"></i>

@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
             'title'=>'Awit ng Tanggalan',
             'Schedule' => 'April 10, 2022',
             'venue' => 'Tubigon, Bohol',
-            'computation' => 'Averaging',
-            'event_id' => 1
+            'computation' => 'Average',
+            'event_id' => 1,
+            'active_round' => 1
         ]);
 
         $this->call(JudgesSeeder::class);
