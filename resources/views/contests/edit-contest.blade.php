@@ -9,7 +9,6 @@
             <form action="{{ route('contests.update', ['id' => $contest->id, 'eventId' =>$contest->event_id]) }}" method="POST" class="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <hr>
                 <div class="mb-4 mt-2">
                     <label for="title" class="block text-gray-700 font-semibold mb-2">Title</label>
                     <input type="text" name="title" id="title" value="{{ $contest->title }}" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter title">

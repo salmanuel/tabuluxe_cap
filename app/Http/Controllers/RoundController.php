@@ -52,6 +52,11 @@ class RoundController extends Controller
             'contest_id' => $contest->id,
         ]);
 
+        // $contest = $round->contest;
+
+        // $contest->active_round = $round->id;
+        // $contest->save();
+
         if ($prevRound) {
             $prevRound->next_round_id = $round->id;
             $prevRound->save();
@@ -142,9 +147,22 @@ class RoundController extends Controller
      * @param  \App\Models\Round  $round
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Round $round)
+    public function update(Request $request, $id, Contest $contest)
     {
-        //
+        $validatedData = $request->validate([
+            'number' => 'string|required',
+            'description' => 'string|required',
+
+        ]);
+
+        $round = Round::findOrFail($id);
+        $round->number = $validatedData['number'];
+        $round->description = $validatedData['description'];
+        // $round->event_id = $eventId;
+        $round->save();
+
+        return redirect('/contests/' . $contest->id . '/contests')->with('Info', 'Updated Successfully.');
+
     }
 
     /**
@@ -157,6 +175,7 @@ class RoundController extends Controller
     {
         //
     }
+    
 
     public function startNextRound(Round $round, Request $request)
     {
@@ -176,6 +195,16 @@ class RoundController extends Controller
                 'remarks' => $remarks,
                 'round_id' => $round->id
             ]);
+
+            foreach($round->criterias as $crit) {
+                foreach($round->contest->judges as $judge){
+                    Score::create([
+                        'judge_id' => $judge->id,
+                        'criteria_id' => $crit->id,
+                        'contestant_id' => $cnt->id
+                    ]);
+                }
+            }
         }
 
         return redirect('/rounds/' . $round->id . '/' . $contest->id);

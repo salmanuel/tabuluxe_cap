@@ -24,7 +24,7 @@
             <thead>
                 <tr class="custom-table-row">
                     <th>Contestants</th>
-                    @foreach($judge->round->criterias as $criteria)
+                    @foreach($judge->contest->getActiveRound()->criterias as $criteria)
                         <th>{{$criteria->name}} ({{$criteria->weight}})</th>
                     @endforeach
                     <th>Total</th>
@@ -32,15 +32,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($judge->contest->contestants as $contestant)
+                @foreach($judge->contest->getActiveRound()->contestants as $contestant)
                 <tr class="text-white">
                     <td class="text-white" style="min-width: 30%">
                         #{{$contestant->number}} - {{$contestant->name}} <br>
                         {{$contestant->remarks}}
                     </td>
                     {!! Form::hidden("judge_id", $judge->id) !!}
-                    @foreach($judge->contest->criterias as $criteria)
+                    @foreach($judge->contest->getActiveRound()->criterias as $criteria)
                         <?php $score = \App\Models\Score::get($judge->id, $criteria->id, $contestant->id); ?>
+                        {{-- @php
+                            dd($judge->id, $criteria->id, $contestant->id)
+                        @endphp --}}
                         <td>
                             {!! Form::number("score[$criteria->id][$contestant->id]",
                                     $score->score,

@@ -10,7 +10,7 @@ class Contest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'schedule', 'event_id', 'computation', 'venue', 'dancesports'
+        'title', 'schedule', 'event_id', 'computation', 'venue', 'dancesports', 'active_round'
     ];
 
     public function judges() {
@@ -35,5 +35,9 @@ class Contest extends Model
     public function getLastRound() {
         return Round::where('contest_id', $this->id)
             ->orderBy('number','desc')->first();
+    }
+
+    public function getActiveRound() {
+        return Round::where('id', $this->active_round)->first();
     }
 }

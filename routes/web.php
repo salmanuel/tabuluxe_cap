@@ -49,8 +49,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::delete('/contests/{id}', [ContestController::class, 'destroy'])->name('contests.destroy');
 
     Route::get('/events/{eventId}/contests/create',[ContestController::class, 'create']);
-    Route::get('/contests/{contest}',[ContestController::class, 'show']);
-
+    Route::get('/contests/{contest}',[ContestController::class, 'show'])->name('contests.show');
 
     Route::post('/events/{eventId}/contests', [ContestController::class, 'store']);
     Route::post("/rounds/{round}/{contest}/contestants", [ContestantController::class, 'store']);
@@ -63,6 +62,8 @@ Route::group(['middleware'=>'auth'], function() {
 
     Route::get('/judges/{judge}', [JudgeController::class, 'show']);
     Route::put('/judges/{judge}', [JudgeController::class, 'update']);
+    // Route::delete('/contests/{contest}', [JudgeController::class, 'destroy'])->name('judges.destroy');
+    Route::delete('/judges/{judge}/contests/{contest}', [JudgeController::class, 'destroy'])->name('judges.destroy');
 
     Route::get('/criterias/{criteria}', [CriteriaController::class, 'show']);
     Route::put('/criterias/{criteria}', [CriteriaController::class, 'update']);
@@ -82,6 +83,7 @@ Route::group(['middleware'=>'auth'], function() {
     Route::get('/rounds/{round}/{contest}', [RoundController::class, 'show'])->name('rounds.preview');
     Route::get('/rounds/{round}/{contest}/select', [RoundController::class, 'select']);
     Route::post('/rounds/{round}/{contest}', [RoundController::class, 'startNextRound']);
+    Route::put('/rounds/{round}/contests/{contest}', [RoundController::class, 'update'])->name('rounds.update');
 
 
     Route::get('/logout',[SiteController::class, 'logout']);

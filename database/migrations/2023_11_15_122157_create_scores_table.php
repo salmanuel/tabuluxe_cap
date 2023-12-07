@@ -18,13 +18,13 @@ return new class extends Migration
             $table->bigInteger('contestant_id')->unsigned();
             $table->bigInteger('judge_id')->unsigned();
             $table->bigInteger('criteria_id')->unsigned();
-            $table->bigInteger('round_id')->unsigned();
+            // $table->bigInteger('round_id')->unsigned();
             $table->integer('score')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('contestant_id')->references('id')->on('contestants')->onDelete('cascade');
             $table->foreign('judge_id')->references('id')->on('judges')->onDelete('cascade');
             $table->foreign('criteria_id')->references('id')->on('criterias')->onDelete('cascade');
-            $table->foreign('round_id')->references('id')->on('rounds')->onDelete('cascade');
+            // $table->foreign('round_id')->references('id')->on('rounds')->onDelete('cascade');
         });
     }
 

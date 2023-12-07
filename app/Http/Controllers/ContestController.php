@@ -29,27 +29,32 @@ class ContestController extends Controller
 
     public function store(Request $request, $eventId) {
         $request->validate([
-            'title' => 'string|required',
-            'schedule' => 'string|required',
-            'venue' => 'string|required',
-            'computation' => 'string|required',
-            'number' => 'numeric|required',
-            'description' => 'string|required'
+            'title'         => 'string|required',
+            'schedule'      => 'string|required',
+            'venue'         => 'string|required',
+            'computation'   => 'string|required',
+            'number'        => 'numeric|required',
+            'description'   => 'string|required'
         ]);
 
         $contest = Contest::create([
-            'title' => $request->title,
-            'schedule' => $request->schedule,
-            'venue' => $request->venue,
-            'computation' => $request->computation,
-            'event_id' => $eventId,
+            'title'         => $request->title,
+            'schedule'      => $request->schedule,
+            'venue'         => $request->venue,
+            'computation'   => $request->computation,
+            'event_id'      => $eventId,
         ]);
 
-        Round::create([
+        $round = Round::create([
             'contest_id' => $contest->id,
             'number' => $request->number,
             'description' => $request->description,
         ]);
+
+        $contest = $round->contest;
+
+        $contest->active_round = $round->id;
+        $contest->save();
 
         return redirect('/events/' . $contest->event_id . '/contests')->with('Info', 'A new contest has been created.');
     }

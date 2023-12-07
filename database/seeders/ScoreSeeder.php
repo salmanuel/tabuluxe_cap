@@ -26,7 +26,7 @@ class ScoreSeeder extends Seeder
                             'contestant_id' => $contestant->id,
                             'judge_id' => $judge->id,
                             'criteria_id' => $crit->id,
-                            'round_id' => $round->id,
+                            // 'round_id' => $round->id,
                             'score' => rand($crit->weight/2, $crit->weight)
                         ]);
                 }

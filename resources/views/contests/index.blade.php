@@ -34,7 +34,7 @@
                             Delete
                         </button>
                         @include('contests.delete-contest')
-                        <a href="{{url('/contests/' . $contest->id)}}" class="btn btn-info">
+                        <a href="{{url('/contests/' . $contest->id )}}" class="btn btn-info">
                             <i class="fa-solid fa-folder-open"></i> View
                         </a>
                     </td>

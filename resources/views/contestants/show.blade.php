@@ -1,21 +1,22 @@
-<?php $criterias = $contestant->contest->criterias; ?>
+<?php $criterias = $contestant->round->criterias; ?>
+<?php $contest = $contestant->round->contest; ?>
 
 @extends('base')
 
 @section('content')
 
 <div class="float-end mt-3">
-    <a href="{{url('/contests/' . $contestant->contest->id)}}" class="btn btn-success">
+    {{-- <a href="{{url('/rounds/' . $contestant->round->id . '/' . $contestant->contest->id)}}" class="btn btn-success">
         <i class="fa fa-arrow-left"></i> Back to Contest
-    </a>
+    </a> --}}
 </div>
 
 <h1 class="mb-0">{{$contestant->name}}</h1>
-<p>
+{{-- <p>
     {{$contestant->contest->title}}
     {{$contestant->contest->schedule}} - {{$contestant->contest->venue}}
 </p>
-<hr>
+<hr> --}}
 
 <div class="row">
     <div class="col-md-3">
@@ -42,7 +43,7 @@
 
         {!! Form::close() !!}
     </div>
-    <div class="col-md-9">
+    {{-- <div class="col-md-9">
         <h3>Scoring Summary</h3>
         <hr>
         <table class="table table-bordered table-striped">
@@ -74,7 +75,7 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </div> --}}
 </div>
 
 @endsection

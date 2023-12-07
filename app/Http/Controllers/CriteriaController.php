@@ -29,7 +29,7 @@ class CriteriaController extends Controller
                 Score::create([
                     'contestant_id' => $contestant->id,
                     'judge_id' => $judge->id,
-                    'round_id' => $round->id,
+                    // 'round_id' => $round->id,
                     'criteria_id' => $criteria->id
                 ]);
             }
@@ -54,6 +54,8 @@ class CriteriaController extends Controller
             'description' => 'string|required',
             'weight' => 'numeric|required'
         ]);
+
+        
 
         $criteria->update($request->only('name','description','weight'));
 

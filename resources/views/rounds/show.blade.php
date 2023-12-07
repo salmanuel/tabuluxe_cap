@@ -3,7 +3,7 @@
 @section('content')
 <div class="mt-2">
     <div class="d-flex align-items-center">
-        <h1 class="title">{{$round->description}}</h1>
+        <h1 class="title">{{$round->description}}</h1> 
         {{-- <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button> --}}
     </div>
     <hr>
@@ -180,10 +180,9 @@
 
             <div class="d-flex justify-content-center">
                 <div>
-                    {{-- @foreach ($contest->rounds as $round) --}}
-                        <a href="{{url('/rounds/'. $round->id . '/' . $contest->id . '/select' )}}" class="btn btn-sm btn-primary p-2 mb-4">Preparation for Next</a>
-                    {{-- @endforeach --}}
-                    {{-- <button class="btn btn-sm btn-primary p-3 mb-4">Preparation for Next Round</button> --}}
+                    @if($round->next_round_id !== null)
+                        <a href="{{url('/rounds/'. $round->id . '/' . $contest->id . '/select' )}}" class="btn btn-sm btn-primary p-2 mb-4">Preparation for Next Round</a>
+                    @endif
                 </div>
             </div>
         {{-- @endforeach --}}

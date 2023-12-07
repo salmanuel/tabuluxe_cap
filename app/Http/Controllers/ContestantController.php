@@ -27,14 +27,11 @@ class ContestantController extends Controller
 
         foreach($round->contest->judges as $judge) {
             foreach($round->criterias as $criteria) {
-                foreach($contest->rounds as $round) {
                     Score::create([
                         'contestant_id' => $contestant->id,
                         'criteria_id' => $criteria->id,
                         'judge_id' => $judge->id,
-                        'round_id' => $round->id
                     ]);
-                }
             }
         }
 
@@ -57,6 +54,7 @@ class ContestantController extends Controller
             'remarks' => 'string|required',
             'number' => 'numeric|required'
         ]);
+        
 
         $contestant->update($request->only('name','number','remarks'));
 

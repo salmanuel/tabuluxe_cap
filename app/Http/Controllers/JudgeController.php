@@ -50,4 +50,11 @@ class JudgeController extends Controller
 
         return redirect('/contests/' . $judge->contest_id)->with('Info','The details of judge ' . $judge->name . ' has been updated.');
     }
+
+    public function destroy($id)
+    {
+        $judge = Judge::findOrFail($id);
+        $judge->delete();
+        return redirect('/contests/' . $judge->contest->id)->with('Info', 'Deleted Successfully.');
+    }
 }
