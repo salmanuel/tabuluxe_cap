@@ -46,7 +46,7 @@ class RoundController extends Controller
 
         $prevRound = $contest->getLastRound();
 
-        $round=Round::create([
+        $round = Round::create([
             'number' => $request->number,
             'description' => $request->description,
             'contest_id' => $contest->id,
@@ -57,8 +57,7 @@ class RoundController extends Controller
             $prevRound->save();
         }
 
-        return redirect('/contests/' . $contest->id)->with('Info','A new Round has been added.');
-
+        return redirect('/contests/' . $contest->id)->with('Info', 'A new Round has been added.');
     }
 
     /**
@@ -84,17 +83,22 @@ class RoundController extends Controller
                 $totalScores += $score;
             }
 
-            // Calculate the average score
+
             $averageScore = count($contest->judges) > 0 ? $totalScores / count($contest->judges) : 0;
             $row['averageScore'] = $averageScore;
 
             $computation[$contestant->id] = $row;
-            $allAverageScores[] = $averageScore;
+            $allAverageScores[$contestant->id] = $averageScore;
         }
 
-        foreach ($round->contestants as $contestant) {
-            // Compute the final average rank
-            $computation[$contestant->id]['finalAverageScore'] = Judge::computeRank($allAverageScores, $computation[$contestant->id]['averageScore'], false);
+
+        arsort($allAverageScores);
+
+
+        $rank = 1;
+        foreach ($allAverageScores as $contestantId => $averageScore) {
+            $computation[$contestantId]['finalRank'] = $rank;
+            $rank++;
         }
 
         $judges = $contest->judges;
@@ -105,7 +109,6 @@ class RoundController extends Controller
             'contest' => $contest,
             'judges' => $judges
         ]);
-
     }
 
     public function select(Round $round, Contest $contest)
@@ -114,12 +117,11 @@ class RoundController extends Controller
 
         // dd($data);
 
-        return view('rounds/selection',[
+        return view('rounds/selection', [
             'data' => $data,
-            'round'=>$round,
+            'round' => $round,
             'contest' => $contest
         ]);
-
     }
 
     /**
@@ -156,13 +158,14 @@ class RoundController extends Controller
         //
     }
 
-    public function startNextRound(Round $round, Request $request) {
+    public function startNextRound(Round $round, Request $request)
+    {
         $contest = $round->contest;
 
         $contest->active_round = $round->id;
         $contest->save();
 
-        foreach($request->check as $index=>$check) {
+        foreach ($request->check as $index => $check) {
             $name = $request->name[$index];
             $remarks = $request->remarks[$index];
             $number = $request->number[$index];
