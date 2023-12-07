@@ -93,36 +93,35 @@
         @if ($contest->computation === "Average")
         <div class="row">
             <div class="col">
-                <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
+                <h3 class="con_rounds">Contestants Score - {{ $round->description }}</h3>
                 <hr>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr class="custom-table-row">
                             <th rowspan="2">Name</th>
                             @foreach($contest->judges as $judge)
-                                <th class="text-center" colspan="2">{{$judge->name}}</th>
+                                <th class="text-center" colspan="1">{{ $judge->name }}</th>
                             @endforeach
-                            <th class="text-center" rowspan="2">Sum of Ranks</th>
+                            <th class="text-center" rowspan="2">Average Score</th>
                             <th class="text-center" rowspan="2">Final Rank</th>
                             <th rowspan="2" class="text-center">...</th>
                             <tr class="custom-table-row">
-                            @foreach($contest->judges as $judge)
-                                <th class="text-center">Score</th>
-                                {{-- <th class="text-center">Rank</th> --}}
-                            @endforeach
-
+                                @foreach($contest->judges as $judge)
+                                    <th class="text-center">Score</th>
+                                    {{-- <th class="text-center">Rank</th> --}}
+                                @endforeach
                             </tr>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($computation as $id=>$row)
+                        @foreach($computation as $id => $row)
 
                         <tr class="text-white">
                             @foreach($row as $rw)
-                                <td class="text-center text-white">{!!$rw !!}</td>
+                                <td class="text-center text-white">{!! $rw !!}</td>
                             @endforeach
                             <td class="text-center">
-                                <a href="{{url('/contestants/' . $id)}}" class="btn btn-sm btn-secondary">
+                                <a href="{{ url('/contestants/' . $id) }}" class="btn btn-sm btn-secondary">
                                     <i class="fa fa-folder-open"></i>
                                 </a>
                             </td>
@@ -133,7 +132,8 @@
                 </table>
             </div>
         </div>
-        @endif
+    @endif
+
 
         {{-- <div class="row">
             <div class="col">

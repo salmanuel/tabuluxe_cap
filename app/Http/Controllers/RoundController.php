@@ -70,32 +70,31 @@ class RoundController extends Controller
     public function show(Round $round, Contest $contest)
     {
         $computation = [];
+        $allAverageScores = [];
 
-
-        $allSumOfRanks=[];
-
-        foreach($round->contestants as $contestant) {
+        foreach ($round->contestants as $contestant) {
             $row = [];
             $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
-            $sumOfRanks=0;
 
-            foreach($contest->judges as $judge) {
-                $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
-                $row[] = $rank = $judge->rank($contestant);
-                $sumOfRanks += $rank;
+            $totalScores = 0;
 
-                // $decryptedPasscode = Crypt::decryptString($judge->password);
-                // $judge->setAttribute('decryptedPasscode', $decryptedPasscode);
+            foreach ($contest->judges as $judge) {
+                $score = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
+                $row[] = $score;
+                $totalScores += $score;
             }
 
-            $row['sumOfRank'] = $sumOfRanks;
+            // Calculate the average score
+            $averageScore = count($contest->judges) > 0 ? $totalScores / count($contest->judges) : 0;
+            $row['averageScore'] = $averageScore;
 
-            $allSumOfRanks[] = $sumOfRanks;
             $computation[$contestant->id] = $row;
+            $allAverageScores[] = $averageScore;
         }
 
-        foreach($round->contestants as $contestant) {
-            $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
+        foreach ($round->contestants as $contestant) {
+            // Compute the final average rank
+            $computation[$contestant->id]['finalAverageScore'] = Judge::computeRank($allAverageScores, $computation[$contestant->id]['averageScore'], false);
         }
 
         $judges = $contest->judges;
@@ -106,6 +105,7 @@ class RoundController extends Controller
             'contest' => $contest,
             'judges' => $judges
         ]);
+
     }
 
     public function select(Round $round, Contest $contest)
