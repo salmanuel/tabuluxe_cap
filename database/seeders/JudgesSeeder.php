@@ -14,6 +14,6 @@ class JudgesSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Judge::factory(3)->create();
+        \App\Models\Judge::factory(5)->create();
     }
 }

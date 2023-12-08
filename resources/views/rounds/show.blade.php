@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-7 mb-3">
             <div class="card h-100">
                 <div class="card-body shadow">
@@ -137,7 +137,7 @@
                     </div>
                 </div>
             @endif
-            
+
 
             @if ($contest->computation === "Average")
                 <div class="row">
@@ -182,6 +182,49 @@
                 </div>
             @endif
 
+            @if($contest->computation === "Complex")
+
+                <div class="row">
+                    <div class="col card-body">
+                        <h3 class="con_rounds">Contestants Score - {{ $round->description }}</h3>
+                        <hr>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Name</th>
+                                    <th class="text-center" colspan="{{count($contest->judges)}}">TOTAL SCORES</th>
+                                    <th class="text-center" rowspan="2">Normalized Average</th>
+                                    <th rowspan="2" class="text-center">...</th>
+                                </tr>
+                                <tr class="custom-table-row">
+
+                                    @foreach($contest->judges as $judge)
+                                        <th class="text-center" colspan="1">{{ $judge->name }}</th>
+                                    @endforeach
+
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                @foreach($computation as $comp)
+                                    <tr>
+                                        <td>{{$comp[0]->name}}</td>
+                                        @for($i=1; $i<count($comp)-1; $i++)
+                                            <td class="text-center">{{$comp[$i]}}</td>
+                                        @endfor
+                                        <td class="text-center">{{number_format($comp[count($comp)-1], 2)}}</td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            @endif
+
             <div class="d-flex justify-content-center">
                 <div>
                     @if($round->next_round_id !== null)
@@ -200,26 +243,30 @@
         font-weight: bold;
         text-shadow: -1px -1px 0 #ffbd59, 1px -1px 0 #ffbd59, -1px 1px 0 #ffbd59, 1px 1px 0 #ffbd59;
     }
-    
+
+    td, th {
+        color: #fff;
+    }
+
     .custom-table-row {
         text-align: left;
-        font-size: 0.75rem; 
-        line-height: 1.5rem; 
-        font-weight: bold; 
-        color: #ffffff; 
-        text-transform: uppercase; 
-        letter-spacing: 0.1em; 
+        font-size: 0.75rem;
+        line-height: 1.5rem;
+        font-weight: bold;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
         background-color: #1a202c;
     }
-    
+
     .card-body {
         background-color: #1a202c;
         color: #ffffff
     }
-    
+
     .con_rounds {
         color:#1a202c;
         font-weight: bold;
         text-shadow: -1px -1px 0 #ffbd59, 1px -1px 0 #ffbd59, -1px 1px 0 #ffbd59, 1px 1px 0 #ffbd59;
     }
-    </style>
+</style>

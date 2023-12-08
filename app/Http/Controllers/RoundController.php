@@ -69,8 +69,8 @@ class RoundController extends Controller
      */
     public function show(Round $round, Contest $contest)
     {
+        $computation = [];
         if($contest->computation === "Ranking") {
-            $computation = [];
 
 
             $allSumOfRanks=[];
@@ -99,8 +99,25 @@ class RoundController extends Controller
                 $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
             }
 
-        } else {
-            $computation = [];
+        }else if($contest->computation=="Complex") {
+            $idx  = 0;
+            foreach($round->contestants as $cont) {
+                $row = [];
+                $row[] = $cont;
+
+                $scores = [];
+                foreach($round->contest->judges as $judge) {
+                    $tot = Score::where('judge_id', $judge->id)
+                            ->where('contestant_id', $cont->id)
+                            ->sum('score');
+                    $scores[] = $tot;
+                    $row[] = $tot;
+                }
+                $row[] = Score::computeNormalizedAverage($scores);
+
+                $computation[] = $row;
+            }
+        }else {
             $allAverageScores = [];
 
             foreach ($round->contestants as $contestant) {
@@ -137,11 +154,12 @@ class RoundController extends Controller
             //     $rank++;
             // }
         };
-        
 
-        
+
+
 
         $judges = $contest->judges;
+
 
         return view('rounds.show', [
             'round' => $round,

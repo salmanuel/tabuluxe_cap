@@ -24,4 +24,20 @@ class Score extends Model
                 ->where('contestant_id', $contestant)
                 ->first();
     }
+
+    public static function computeNormalizedAverage($scores) {
+        sort($scores);
+
+        $len = count($scores);
+
+        unset($scores[0]);
+        unset($scores[$len-1]);
+        $scores = array_values($scores);
+
+        //compute sum of remaining
+        $sum = 0;
+        foreach($scores as $s) $sum+=$s;
+
+        return $sum/($len-2);
+    }
 }
