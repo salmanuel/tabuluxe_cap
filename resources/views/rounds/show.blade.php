@@ -6,9 +6,16 @@
         <div class="d-flex align-items-center">
             <h1 class="title">{{$round->description}}</h1>
         </div>
+        @if(!$round->contest->dancesports)
         <div class="d-flex justify-content-end">
-            <a href="{{ route('contests.show', ['contest' => $contest->id]) }}" class="btn btn-warning">Back</a>
+            <a href="{{ route('contests.show', ['contest' => $contest->id]) }}" class="btn btn-warning">Back to {{ $round->contest->title }}</a>
         </div>
+        @endif
+        @if($round->contest->dancesports)
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('dancesports.show', ['contest' => $contest->id]) }}" class="btn btn-warning">Back to {{ $round->contest->title }}</a>
+        </div>
+        @endif
     </div>
     <hr>
 
@@ -27,7 +34,7 @@
                             <tr class="bg-secondary text-light">
                                 <th>Name</th>
                                 <th>Remarks</th>
-                                <th>...</th>
+                                <th class="text-center">...</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +68,7 @@
                             <tr class="bg-secondary text-white">
                                 <th>Criteria</th>
                                 <th class="text-center">Weight</th>
-                                <th>...</th>
+                                <th class="text-center">...</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,9 +78,9 @@
                             <tr>
                                 <td  class="text-white">
                                     {{$criteria->name}}
-                                    <div class="text-muted fst-italic ms-2">{{$criteria->description}}</div>
+                                    <div class="text-muted fst-italic ms-2 text-truncate" style="max-width: 350px">{{$criteria->description}}</div>
                                 </td>
-                                <td class="text-center text-white">{{$criteria->weight}}</td>
+                                <td class="text-center text-white truncate-text">{{$criteria->weight}}</td>
                                 <td class="text-center">
                                     <a href="{{url('/criterias/' . $criteria->id)}}" class="btn btn-sm btn-secondary">
                                         <i class="fa fa-folder-open"></i>
@@ -94,9 +101,16 @@
 
         {{-- @foreach ($contest->rounds as $round) --}}
             @if($contest->computation === "Ranking")
-                <div class="row">
+                <div class="row mx-auto">
                     <div class="col">
-                        <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ url('/rounds/pdf/'. $contestant->round->id . '/' . $contestant->round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
+                            </div>
+                        </div>
                         <hr>
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -107,7 +121,7 @@
                                     @endforeach
                                     <th class="text-center" rowspan="2">Sum of Ranks</th>
                                     <th class="text-center" rowspan="2">Final Rank</th>
-                                    <th rowspan="2" class="text-center">...</th>
+                                    {{-- <th rowspan="2" class="text-center">...</th> --}}
                                     <tr class="custom-table-row">
                                     @foreach($contest->judges as $judge)
                                         <th class="text-center">Score</th>
@@ -124,11 +138,11 @@
                                     @foreach($row as $rw)
                                         <td class="text-center text-white">{!!$rw !!}</td>
                                     @endforeach
-                                    <td class="text-center">
+                                    {{-- <td class="text-center">
                                         <a href="{{url('/contestants/' . $id)}}" class="btn btn-sm btn-secondary">
                                             <i class="fa fa-folder-open"></i>
                                         </a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
 
                                 @endforeach
@@ -140,9 +154,16 @@
 
 
             @if ($contest->computation === "Average")
-                <div class="row">
+                <div class="row mx-auto">
                     <div class="col">
-                        <h3 class="con_rounds">Contestants Score - {{ $round->description }}</h3>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ url('/rounds/pdf/'. $contestant->round->id . '/' . $contestant->round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
+                            </div>
+                        </div>
                         <hr>
                         <table class="table table-bordered table-striped">
                             <thead>
@@ -153,7 +174,7 @@
                                     @endforeach
                                     <th class="text-center" rowspan="2">Total Score</th>
                                     <th class="text-center" rowspan="2">Final Average</th>
-                                    <th rowspan="2" class="text-center">...</th>
+                                    {{-- <th rowspan="2" class="text-center">...</th> --}}
                                     <tr class="custom-table-row">
                                         @foreach($contest->judges as $judge)
                                             <th class="text-center">Score</th>
@@ -168,11 +189,11 @@
                                     @foreach($row as $rw)
                                         <td class="text-center text-white">{!! $rw !!}</td>
                                     @endforeach
-                                    <td class="text-center">
+                                    {{-- <td class="text-center">
                                         <a href="{{ url('/contestants/' . $id) }}" class="btn btn-sm btn-secondary">
                                             <i class="fa fa-folder-open"></i>
                                         </a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
 
                                 @endforeach
@@ -184,9 +205,16 @@
 
             @if($contest->computation === "Complex")
 
-                <div class="row">
+                <div class="row mx-auto">
                     <div class="col card-body">
-                        <h3 class="con_rounds">Contestants Score - {{ $round->description }}</h3>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ url('/rounds/pdf/'. $contestant->round->id . '/' . $contestant->round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
+                            </div>
+                        </div>
                         <hr>
                         <table class="table table-bordered">
                             <thead>
@@ -194,7 +222,7 @@
                                     <th rowspan="2">Name</th>
                                     <th class="text-center" colspan="{{count($contest->judges)}}">TOTAL SCORES</th>
                                     <th class="text-center" rowspan="2">Normalized Average</th>
-                                    <th rowspan="2" class="text-center">...</th>
+                                    {{-- <th rowspan="2" class="text-center">...</th> --}}
                                 </tr>
                                 <tr class="custom-table-row">
 
@@ -213,9 +241,9 @@
                                             <td class="text-center">{{$comp[$i]}}</td>
                                         @endfor
                                         <td class="text-center">{{number_format($comp[count($comp)-1], 2)}}</td>
-                                        <td>
+                                        {{-- <td>
 
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -225,7 +253,7 @@
 
             @endif
 
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mt-2">
                 <div>
                     @if($round->next_round_id !== null)
                         <a href="{{url('/rounds/'. $round->id . '/' . $contest->id . '/select' )}}" class="btn btn-sm btn-primary p-2 mb-4">Preparation for Next Round</a>
@@ -268,5 +296,12 @@
         color:#1a202c;
         font-weight: bold;
         text-shadow: -1px -1px 0 #ffbd59, 1px -1px 0 #ffbd59, -1px 1px 0 #ffbd59, 1px 1px 0 #ffbd59;
+    }
+
+    .truncate-text {
+        max-width: 100px; 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>

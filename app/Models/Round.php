@@ -26,32 +26,41 @@ class Round extends Model
     public function computeOverall() {
         //ranking system
         $data = [];
-        // foreach($this->contest->judges as $judge) {
-        //     $scores = [];
-        //     foreach($this->contestants as $cont) {
-        //         $scores[] = $cont->getTotalScore($judge);
-        //     }
+        if($this->contest->computation === 'Ranking') {
 
-        //     foreach($this->contestants as $cont) {
-        //         $data[] = [
-        //             'judge' => $judge,
-        //             'contestant' => $cont,
-        //             'rank' => Judge::computeRank($scores, $cont->getTotalScore($judge), $scores, true)
-        //         ];
-        //     }
-        // }
-        // return $data;
-        foreach($this->contestants as $cont) {
-            $totalRanks = 0;
-            foreach($this->contest->judges as $judge) {
-                $totalRanks += $judge->rank($cont);
+            foreach($this->contestants as $cont) {
+                $totalRanks = 0;
+                foreach($this->contest->judges as $judge) {
+                    $totalRanks += $judge->rank($cont);
+                }
+                $data[] = [
+                    'contestant'=>$cont,
+                    'sumOfRanks' => $totalRanks
+                ];
             }
-            $data[] = [
-                'contestant'=>$cont,
-                'sumOfRanks' => $totalRanks
-            ];
-        }
 
+            return $data;
+        } else  {
+            // $data = [];
+
+            foreach ($this->contestants as $cont) {
+                $totalScores = 0;
+    
+                foreach ($this->contest->judges as $judge) {
+                    $score = \App\Models\Score::judgeTotal($judge->id, $cont->id);
+                    $totalScores += $score;
+                }
+    
+                // $averageScore = count($this->contest->judges) > 0 ? $totalScores / count($this->contest->judges) : 0;
+                $averageScore = count($this->contest->judges) > 0 ? number_format($totalScores / count($this->contest->judges), 2) . ' %' : '0.00 %';
+
+                $data[] = [
+                    'contestant' => $cont,
+                    'averageScore' => $averageScore
+                ];
+            }
+
+        } 
         return $data;
     }
 }

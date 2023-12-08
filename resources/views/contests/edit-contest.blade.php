@@ -6,7 +6,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="{{ route('contests.update', ['id' => $contest->id, 'eventId' =>$contest->event_id]) }}" method="POST" class="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg" enctype="multipart/form-data">
+            <form action="{{ route('contests.update', ['id' => $contest->id, 'eventId' =>$contest->event_id]) }}" method="POST" class="max-w-lg mx-auto p-4 rounded-lg" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-4 mt-2">
@@ -42,11 +42,13 @@
                         <div class="text-sm text-red-500 italic">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-                <div class="text-center mt-1">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="d-flex justify-content-between">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                    <div class="text-center mt-1">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </form>
         </div>

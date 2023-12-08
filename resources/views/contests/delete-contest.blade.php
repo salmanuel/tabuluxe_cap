@@ -13,7 +13,7 @@
           <form method="POST" action="{{ route('contests.destroy', ['id' => $contest->id, 'eventId' =>$contest->event_id]) }}">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger text-dark">Delete</button>
+            <button type="submit" class="btn btn-danger text-white">Delete</button>
         </form>
         </div>
       </div>

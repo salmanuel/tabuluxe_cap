@@ -13,7 +13,7 @@
           <h5 class="modal-title" id="addRoundModalLabel">Add Rounds</h5>
           <button type="button" class="text-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        {!! Form::open(['url'=>'/contests/' . $contest->id , 'method'=>'post']) !!}
+        {!! Form::open(['url'=>'/dancesports/' . $contest->id, 'method'=>'post']) !!}
         <div class="modal-body">
             <div class="mb-3">
                 {!! Form::label("Round") !!}
@@ -24,11 +24,6 @@
                 {!! Form::label("Description") !!}
                 {!! Form::textarea("description", null, ['class'=>'form-control', 'rows' => 3]) !!}
             </div>
-{{-- 
-            <div class="mb-3">
-                {!! Form::label("weight") !!}
-                {!! Form::number("weight", null, ['class'=>'form-control']) !!}
-            </div> --}}
 
         </div>
         <div class="modal-footer">

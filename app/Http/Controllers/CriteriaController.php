@@ -44,11 +44,11 @@ class CriteriaController extends Controller
         //     }
         // }
 
-        if ($contest->dancesports) {
-            return redirect('/dancesports/' . $contest->id)->with('Info', 'A criteria has been added.');
-        } else {
-            return redirect('/rounds/'. $round->id . '/' . $contest->id)->with('Info', 'A criteria has been added.');
-        }
+        // if ($contest->dancesports) {
+        //     return redirect('/dancesports/' . $contest->id)->with('Info', 'A criteria has been added.');
+        // } else {
+        return redirect('/rounds/'. $round->id . '/' . $contest->id)->with('Info', 'A criteria has been added.');
+        // }
     }
 
     public function show(Criteria $criteria) {
@@ -69,5 +69,13 @@ class CriteriaController extends Controller
         $criteria->update($request->only('name','description','weight'));
 
         return redirect('/contests/' . $criteria->contest_id)->with('Info','Criteria ' . $criteria->name . ' has been updated.');
+    }
+
+    public function destroy($id)
+    {
+        $criteria = Criteria::findOrFail($id);
+        $criteria->delete();
+        return redirect('/rounds/' . $criteria->round->id . '/' . $criteria->round->contest->id)->with('Info', 'Deleted Successfully.');
+
     }
 }

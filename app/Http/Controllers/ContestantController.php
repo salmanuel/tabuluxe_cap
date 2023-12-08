@@ -13,7 +13,8 @@ class ContestantController extends Controller
     public function store(Request $request, Round $round, Contest $contest) {
         $request->validate([
             'name' => 'string|required',
-            'number' => 'required|numeric',
+            // 'number' => 'required|numeric',
+            'number' => 'numeric|required|unique:contestants,number,NULL,id,round_id,' . $round->id,
             'remarks' => 'string',
         ]);
 
@@ -36,7 +37,7 @@ class ContestantController extends Controller
         }
 
         if ($contest->dancesports) {
-            return redirect('/dancesports/' . $contest->id)->with('Info', 'A new contestant has been added.');
+            return redirect('/rounds/' . $round->id . '/' . $contest->id)->with('Info', 'A new contestant has been added.');
         } else {
             return redirect('/rounds/'. $round->id . '/' . $contest->id)->with('Info', 'A new contestant has been added.');
         }
@@ -58,6 +59,13 @@ class ContestantController extends Controller
 
         $contestant->update($request->only('name','number','remarks'));
 
-        return redirect('/contests/' . $contestant->contest_id)->with('Info','The contestant ' . $contestant->name . ' has been updated.');
+        return redirect('/contestants/' . $contestant->id)->with('Info','The contestant ' . $contestant->name . ' has been updated.');
+    }
+
+    public function destroy($id)
+    {
+        $contestant = Contestant::findOrFail($id);
+        $contestant->delete();
+        return redirect('/rounds/' . $contestant->round->id . '/' . $contestant->round->contest->id)->with('Info', 'Deleted Successfully.');
     }
 }

@@ -55,10 +55,11 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post("/rounds/{round}/{contest}/contestants", [ContestantController::class, 'store']);
     Route::post("/contests/{contest}/judges", [JudgeController::class, 'store']);
     Route::post("/rounds/{round}/{contest}/criterias", [CriteriaController::class, 'store']);
-    Route::post("/contests/{contest}/rounds", [RoundController::class, 'store']);
+    Route::post("/contests/{contest}", [RoundController::class, 'store']);
 
     Route::get('/contestants/{contestant}',[ContestantController::class, 'show']);
     Route::put('/contestants/{contestant}',[ContestantController::class, 'update']);
+    Route::delete('/contestants/{contestant}/contests/{contest}', [ContestantController::class, 'destroy'])->name('contestants.destroy');
 
     Route::get('/judges/{judge}', [JudgeController::class, 'show']);
     Route::put('/judges/{judge}', [JudgeController::class, 'update']);
@@ -67,15 +68,17 @@ Route::group(['middleware'=>'auth'], function() {
 
     Route::get('/criterias/{criteria}', [CriteriaController::class, 'show']);
     Route::put('/criterias/{criteria}', [CriteriaController::class, 'update']);
+    Route::delete('/criterias/{criteria}/contests/{contest}', [CriteriaController::class, 'destroy'])->name('criterias.destroy');
 
     Route::get('/dancesports',[DanceSportController::class, 'index'])->name('dancesports.dancesport');
     Route::get('/dancesports/create',[DanceSportController::class, 'create']);
     Route::post('/dancesports', [DanceSportController::class, 'store']);
-    Route::get('/dancesports/{contest}',[DanceSportController::class, 'show']);
+    Route::get('/dancesports/{contest}',[DanceSportController::class, 'show'])->name('dancesports.show');
 
     Route::post("/dancesports/{contest}/judges", [JudgeController::class, 'store']);
-    Route::post("/dancesports/{contest}/criterias", [CriteriaController::class, 'store']);
-    Route::post("/dancesports/{contest}/contestants", [ContestantController::class, 'store']);
+    // Route::post("/dancesports/{contest}/criterias", [CriteriaController::class, 'store']);
+    // Route::post("/dancesports/{contest}/contestants", [ContestantController::class, 'store']);
+    Route::post("/dancesports/{contest}", [RoundController::class, 'store']);
 
     Route::put('/dancesports/{id}', [DanceSportController::class, 'update'])->name('dancesports.update');
     Route::delete('/dancesports/{id}', [DanceSportController::class, 'destroy'])->name('dancesports.destroy');
@@ -85,8 +88,9 @@ Route::group(['middleware'=>'auth'], function() {
     Route::post('/rounds/{round}/{contest}', [RoundController::class, 'startNextRound']);
     Route::get('/rounds/{round}', [RoundController::class, 'edit']);
     Route::put('/rounds/{round}', [RoundController::class, 'update'])->name('rounds.update');
-    // Route::delete('/rounds/{round}/contests/{contest}', [RoundController::class, 'destroy'])->name('rounds.destroy');
+    Route::delete('/rounds/{round}', [RoundController::class, 'destroy'])->name('rounds.destroy');
 
+    Route::get('/rounds/pdf/{round}/{contest}',[RoundController::class,'pdf']);
 
     Route::get('/logout',[SiteController::class, 'logout']);
 });

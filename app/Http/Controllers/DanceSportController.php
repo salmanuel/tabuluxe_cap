@@ -6,6 +6,7 @@ use App\Models\Contest;
 use App\Models\Criteria;
 use App\Models\Judge;
 use App\Models\Round;
+use App\Models\Score;
 use Illuminate\Http\Request;
 
 class DanceSportController extends Controller
@@ -37,44 +38,69 @@ class DanceSportController extends Controller
             'computation' => 'Ranking',
             'dancesports' => true
         ]);
+        
 
         $round = Round::create([
             'contest_id' => $contest->id,
             'number' => $request->number,
             'description' => $request->description,
         ]);
+
+        $contest = $round->contest;
+
+        $contest->active_round = $round->id;
+        $contest->save();
         
-        if($contest->title = 'Latin') {
+        if($contest->title === 'Latin') {
             $latins = [
                 [
                     'name' => 'Cha Cha',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'description' => 'One of the five main Latin ballroom dances most frequently taught in dance schools around the world.',
+                    'round_id' => $round->id,
+                    'weight' => 10
                 ],
                 [
                     'name' => 'Samba',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'description' => 'Ballroom dance of Brazilian origin, popularized in western Europe and the United States in the early 1940s.',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
                 [
                     'name' => 'Rumba',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'description' => 'Ballroom dance of Afro-Cuban folk-dance origin that became internationally popular in the early 20th century.',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
                 [
                     'name' => 'Paso Doble',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'description' => 'The term “paso doble” means “double step” or “two-step” in Spanish',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
                 [
                     'name' => 'Jive',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'description' => 'An energetic, upbeat partner dance with one partner leading and the other following.',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
 
             ];
             foreach($latins as $latin) {
-                Criteria::create($latin);
+                $criteria = Criteria::create($latin);
+            }
+
+            foreach($round->contestants as $contestant) {
+                foreach($round->contest->judges as $judge) {
+                    Score::create([
+                        'contestant_id' => $contestant->id,
+                        'criteria_id' => $criteria->id,
+                        'judge_id' => $judge->id,
+                    ]);
+                }
             }
             // Criteria::create([
             //     'name' => ''
@@ -83,33 +109,53 @@ class DanceSportController extends Controller
             $standard = [
                 [
                     'name' => 'Slow Waltz',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'description' => 'The Slow Waltz is danced with 28-30 beats per minute.',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
                 [
-                    'Tango',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'name' => 'Tango',
+                    'description' => 'Characterized by a close hold, a low center of gravity and an emphasis on Contra Body movement.',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
                 [
-                    'Viennese Waltz',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'name' => 'Viennese Waltz',
+                    'description' => 'Originally a folk dance in rural Austria and Germany.',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
                 [
-                    'Foxtrot',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'name' => 'Foxtrot',
+                    'description' => 'A smooth dance where the dancers travel across the dance floor',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
                 ],
                 [
-                    'Quickstep',
-                    'description' => 'Dance',
-                    'round_id' => $round->id
+                    'name' => 'Quickstep',
+                    'description' => 'The quickstep is a light-hearted dance of the standard ballroom dances.',
+                    'round_id' => $round->id,
+                    'weight' => 10
+
 
                 ]
             ];
             foreach($standard as $stndrd) {
-                Criteria::create($stndrd);
+                $criteria = Criteria::create($stndrd);
+            }
+
+            foreach($round->contestants as $contestant) {
+                foreach($round->contest->judges as $judge) {
+                    Score::create([
+                        'contestant_id' => $contestant->id,
+                        'criteria_id' => $criteria->id,
+                        'judge_id' => $judge->id,
+                    ]);
+                }
             }
         }
         
@@ -120,40 +166,40 @@ class DanceSportController extends Controller
 
     public function show(Contest $contest) {
 
-        $computation = [];
+        // $computation = [];
 
 
-        $allSumOfRanks=[];
+        // $allSumOfRanks=[];
 
-        foreach($contest->contestants as $contestant) {
-            $row = [];
-            $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
-            $sumOfRanks=0;
+        // foreach($contest->contestants as $contestant) {
+        //     $row = [];
+        //     $row[] = "#" . $contestant->number . " " . $contestant->name . ($contestant->remarks ? "<br/>" . $contestant->remarks : "");
+        //     $sumOfRanks=0;
 
-            foreach($contest->judges as $judge) {
-                $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
-                $row[] = $rank = $judge->rank($contestant);
-                $sumOfRanks += $rank;
+        //     foreach($contest->judges as $judge) {
+        //         $row[] = \App\Models\Score::judgeTotal($judge->id, $contestant->id);
+        //         $row[] = $rank = $judge->rank($contestant);
+        //         $sumOfRanks += $rank;
 
-                // $decryptedPasscode = Crypt::decryptString($judge->password);
-                // $judge->setAttribute('decryptedPasscode', $decryptedPasscode);
-            }
+        //         // $decryptedPasscode = Crypt::decryptString($judge->password);
+        //         // $judge->setAttribute('decryptedPasscode', $decryptedPasscode);
+        //     }
 
-            $row['sumOfRank'] = $sumOfRanks;
+        //     $row['sumOfRank'] = $sumOfRanks;
 
-            $allSumOfRanks[] = $sumOfRanks;
-            $computation[$contestant->id] = $row;
-        }
+        //     $allSumOfRanks[] = $sumOfRanks;
+        //     $computation[$contestant->id] = $row;
+        // }
 
-        foreach($contest->contestants as $contestant) {
-            $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
-        }
+        // foreach($contest->contestants as $contestant) {
+        //     $computation[$contestant->id]['finalRank'] = Judge::computeRank($allSumOfRanks, $computation[$contestant->id]['sumOfRank'],false);
+        // }
 
         $rounds = $contest->rounds;
 
         return view('dancesports.show', [
             'contest' => $contest,
-            'computation' => $computation,
+            // 'computation' => $computation,
             'rounds' => $rounds
 
         ]);

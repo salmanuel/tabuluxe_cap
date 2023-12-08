@@ -8,7 +8,7 @@
             <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="{{url('/events/' . $contest->event->id .'/contests')  }}" class="btn btn-warning">Back</a>
+            <a href="{{url('/events/' . $contest->event->id .'/contests')  }}" class="btn btn-warning">Back to {{$contest->event->event_name}}</a>
         </div>
     </div>
     <hr>
@@ -131,5 +131,10 @@
     color:#1a202c;
     font-weight: bold;
     text-shadow: -1px -1px 0 #ffbd59, 1px -1px 0 #ffbd59, -1px 1px 0 #ffbd59, 1px 1px 0 #ffbd59;
+}
+
+.btn-warning:hover {
+    background-color: #080d32 !important;
+    color: white !important;
 }
 </style>

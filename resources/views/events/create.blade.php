@@ -15,7 +15,7 @@
                 {!! Form::text("event_name", null, ['class'=>'form-control form-control-sm text-dark']) !!}
             </div>
 
-            <button type="submit" class="btn btn-success btn-lg d-block mx-auto fs-6">
+            <button type="submit" class="btn btn-warning btn-lg d-block mx-auto fs-6">
                 Create Event
             </button>
 
