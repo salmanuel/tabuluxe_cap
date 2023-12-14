@@ -25,13 +25,26 @@ class JudgeController extends Controller
             'access_token' => Str::random(64)
         ]);
 
+        foreach($contest->rounds as $round) {
+            foreach($round->contestants as $cont) {
+                foreach($round->criterias as $crit) {
+                    Score::create([
+                        'contestant_id' => $cont->id,
+                        'judge_id' => $judge->id,
+                        'criteria_id' => $crit->id,
+                        'score' => 0
+                    ]);
+                }
+            }
+        }
+
         // return redirect('/contests/' . $contest->id)->with('Info','A new Judge has been created.');
         if ($contest->dancesports) {
             return redirect('/dancesports/' . $contest->id)->with('Info', 'A new Judge has been created.');
         } else {
             return redirect('/contests/' . $contest->id)->with('Info', 'A new Judge has been created.');
         }
-        
+
     }
 
     public function show(Judge $judge) {
@@ -54,7 +67,9 @@ class JudgeController extends Controller
     public function destroy($id)
     {
         $judge = Judge::findOrFail($id);
+        $id = $judge->id;
         $judge->delete();
+        Score::where('judge_id', $id)->delete();
         return redirect('/contests/' . $judge->contest->id)->with('Info', 'Deleted Successfully.');
     }
 }
