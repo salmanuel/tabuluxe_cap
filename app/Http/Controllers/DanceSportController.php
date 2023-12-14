@@ -36,7 +36,8 @@ class DanceSportController extends Controller
             'schedule' => $request->schedule,
             'venue' => $request->venue,
             'computation' => 'Ranking',
-            'dancesports' => true
+            'dancesports' => true,
+            'user_id' => auth()->user()->id
         ]);
         
 

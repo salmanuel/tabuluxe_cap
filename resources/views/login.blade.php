@@ -13,12 +13,12 @@
 
                 <div class="mb-3">
                     {!! Form::label("email", "Username", ['class' => 'text-warning fs-6']) !!}
-                    {!! Form::text("email", null, ['class'=>'form-control form-control-sm']) !!}
+                    {!! Form::text("email", null, ['class'=>'form-control form-control-sm text-dark']) !!}
                 </div>
 
                 <div class="mb-3">
                     {!! Form::label("password", "Password", ['class' => 'text-warning fs-6']) !!}
-                    {!! Form::password("password", ['class'=>'form-control form-control-sm']) !!}
+                    {!! Form::password("password", ['class'=>'form-control form-control-sm text-dark']) !!}
                 </div>
 
                 <button class="btn btn-primary btn-lg d-block mx-auto fs-6">

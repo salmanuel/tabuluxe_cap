@@ -11,9 +11,10 @@
                 <hr class="bg-white">
 
                 {!! Form::open(['url'=>'/judging/login', 'method'=>'post']) !!}
+                @csrf
                 <div class="mb-3">
                     {!! Form::label("passcode", "Judge Passcode", ['class' => 'text-white fs-6']) !!}
-                    {!! Form::text("passcode", null, ['class'=>'form-control form-control-sm']) !!}
+                    {!! Form::text("passcode", null, ['class'=>'form-control form-control-sm text-dark']) !!}
                 </div>
 
                 <button class="btn btn-primary btn-lg d-block mx-auto fs-6">

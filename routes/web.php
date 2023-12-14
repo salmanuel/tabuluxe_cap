@@ -11,6 +11,7 @@ use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\ContestantController;
 use App\Http\Controllers\RoundController;
 use App\Http\Controllers\DanceSportController;
+use App\Http\Controllers\LogController;
 use App\Models\Round;
 
 /*
@@ -92,5 +93,8 @@ Route::group(['middleware'=>'auth'], function() {
 
     Route::get('/rounds/pdf/{round}/{contest}',[RoundController::class,'pdf']);
 
+    Route::get('/logs', [LogController::class, 'index']);
+
+    Route::put('/userUpdate/{id}', [SiteController::class, 'update'])->name('profile.update');
     Route::get('/logout',[SiteController::class, 'logout']);
 });

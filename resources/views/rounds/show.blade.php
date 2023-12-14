@@ -108,7 +108,7 @@
                                 <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ url('/rounds/pdf/'. $contestant->round->id . '/' . $contestant->round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
+                                <a href="{{ url('/rounds/pdf/'. $round->id . '/' . $round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
                             </div>
                         </div>
                         <hr>
@@ -161,7 +161,7 @@
                                 <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ url('/rounds/pdf/'. $contestant->round->id . '/' . $contestant->round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
+                                <a href="{{ url('/rounds/pdf/'. $round->id . '/' . $round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
                             </div>
                         </div>
                         <hr>
@@ -212,7 +212,7 @@
                                 <h3 class="con_rounds">Contestants Score - {{$round->description}}</h3>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ url('/rounds/pdf/'. $contestant->round->id . '/' . $contestant->round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
+                                <a href="{{ url('/rounds/pdf/'. $round->id . '/' . $round->contest->id) }}" class="btn btn-warning"><i class="fa-solid fa-file-pdf"></i> Save as Pdf</a>
                             </div>
                         </div>
                         <hr>

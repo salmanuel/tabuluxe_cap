@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->string('event_name')->nullable();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            $table->string('log_entry');
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('logs');
     }
 };

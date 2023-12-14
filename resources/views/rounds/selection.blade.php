@@ -23,7 +23,9 @@
                                 <th>Sum Of Ranks</th>
                                 @endif
 
+                                @if($round->contest->computation === 'Average' || $round->contest->computation === 'Complex')
                                 <th>Average</th>
+                                @endif
                                 <th class="text-center">...</th>
                             </tr>
                         </thead>
@@ -36,9 +38,9 @@
                                     @if($round->contest->computation === 'Ranking')
                                     <td class="text-center">{{$row['sumOfRanks']}}</td>
                                     @endif
-                                    {{-- @if($round->contest->computation === 'Average' | $round->contest->computation === 'Complex') --}}
+                                    @if($round->contest->computation === 'Average' || $round->contest->computation === 'Complex')
                                     <td class="text-center">{{$row['averageScore']}}</td>
-                                    {{-- @endif --}}
+                                    @endif
                                     <td class="text-center">
                                         <input type="checkbox" name="check[{{$row['contestant']->id}}]">
                                         <input type="hidden" name="name[{{$row['contestant']->id}}]" value="{{$row['contestant']->name}}">

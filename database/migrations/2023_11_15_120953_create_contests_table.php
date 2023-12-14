@@ -19,11 +19,14 @@ return new class extends Migration
             $table->string('schedule');
             $table->string('venue');
             $table->bigInteger('event_id')->unsigned()->nullable();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('computation');
             $table->boolean('dancesports')->nullable()->default(false);
             $table->bigInteger('active_round')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
 

@@ -37,6 +37,9 @@ class Round extends Model
                     'contestant'=>$cont,
                     'sumOfRanks' => $totalRanks
                 ];
+
+                $data = collect($data)->sortByDesc('sumOfRanks')->values()->all();
+
             }
 
             return $data;
@@ -58,6 +61,8 @@ class Round extends Model
                     'contestant' => $cont,
                     'averageScore' => $averageScore
                 ];
+
+                $data = collect($data)->sortByDesc('averageScore')->values()->all();
             }
 
         } 

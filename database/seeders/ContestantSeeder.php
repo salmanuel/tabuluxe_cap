@@ -26,13 +26,13 @@ class ContestantSeeder extends Seeder
                 'round_id' => 1,
                 'name'=>'Schetznia Algova',
                 'remarks' => "Yesn't",
-                'number'=>1
+                'number'=>2
             ],
             [
                 'round_id' => 1,
                 'name'=>'Vince Sy',
                 'remarks' => 'No',
-                'number'=>1
+                'number'=>3
             ],
         ];
 

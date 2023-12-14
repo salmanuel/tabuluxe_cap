@@ -25,6 +25,7 @@ class EventsController extends Controller
 
         $event = Event::create([
             'event_name' => $request->event_name,
+            'user_id' => auth()->user()->id
         ]);
 
         return redirect('/events/')->with('Info','A new event has been created.');
