@@ -16,9 +16,9 @@
     </div>
     <h3 class="text-center mt-4 mb-3 title">Scoring Sheet</h3>
     <hr class="text-white">
-    
+
     {!! Form::open(['url'=>'/judging', 'method'=>'put']) !!}
-    
+
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead>
@@ -31,7 +31,7 @@
                     @if($judge->contest->computation === "Ranking")
                     <th>Rank</th>
                     @endif
-                    
+
                     @if($judge->contest->computation === "Average")
                     <th>Average</th>
                     @endif
@@ -53,7 +53,7 @@
                         <td>
                             {!! Form::number("score[$criteria->id][$contestant->id]",
                                     $score->score,
-                                    ['class'=>'form-control','max'=>$criteria->weight,'min'=>0]) !!}
+                                    ['class'=>'form-control','max'=>$criteria->weight,'min'=>0, 'step'=>'0.1']) !!}
                         </td>
                     @endforeach
                         <td class="text-center text-white">{{\App\Models\Score::judgeTotal($judge->id, $contestant->id)}}</td>
@@ -63,7 +63,7 @@
                             {{$judge->rank($contestant)}}
                         </td>
                         @endif
-                        
+
                         @if($judge->contest->computation === "Average")
                         <td class="text-center text-white">
                             @php
@@ -78,14 +78,14 @@
             </tbody>
         </table>
     </div>
-    
+
     <button class="btn btn-success btn-lg mt-3">
         <i class="fa fa-save"></i> Save Changes
     </button>
     <span class="text-info">Note: Total and Rank will be updated after saving.</span>
-    
+
     {!! Form::close() !!}
-    
+
 </div>
 @endsection
 

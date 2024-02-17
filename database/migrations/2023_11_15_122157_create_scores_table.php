@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('judge_id')->unsigned();
             $table->bigInteger('criteria_id')->unsigned();
             // $table->bigInteger('round_id')->unsigned();
-            $table->integer('score')->unsigned()->nullable();
+            $table->decimal('score',5,2)->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('contestant_id')->references('id')->on('contestants')->onDelete('cascade');
             $table->foreign('judge_id')->references('id')->on('judges')->onDelete('cascade');
