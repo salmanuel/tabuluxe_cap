@@ -45,9 +45,9 @@ class Judge extends Model
                 $prev=$score;
                 $rank++;
             }
-            $ranks[$score] = $rank;
+            $ranks["$score"] = $rank;
         }
 
-        return $ranks[$theScore];
+        return $ranks["$theScore"];
     }
 }
