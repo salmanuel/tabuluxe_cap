@@ -1,8 +1,4 @@
-{{-- <?php
-
-$judges = $criteria->contest->judges;
-
-?> --}}
+@php use \App\Models\Score; @endphp
 
 @extends('base')
 
@@ -14,55 +10,91 @@ $judges = $criteria->contest->judges;
     </a>
 </div>
 
-<h1 class="mb-0 title">Criteria: {{$criteria->name}}</h1>
-<p>
-    <div class="d-inline-block text-white">{{$criteria->round->contest->title}}</div>
-    <div class="d-inline-block text-white">{{$criteria->round->contest->schedule}}</div>
-    <div class="d-inline-block text-white">{{$criteria->round->contest->venue}}</div>
-</p>
+<div class="px-4">
+    <h1 class="mb-0 title">Criteria: {{$criteria->name}}</h1>
+    <p>
+        <div class="d-inline-block text-white">{{$criteria->round->contest->title}}</div>
+        <div class="d-inline-block text-white">{{$criteria->round->contest->schedule}}</div>
+        <div class="d-inline-block text-white">{{$criteria->round->contest->venue}}</div>
+    </p>
+</div>
+
 <hr>
 
-<div class="row justify-content-center mt-5 vh-100">
-    <div class="col-md-4">
+<div class="p-4 row">
+    <div class="col-md-3">
         <div class=" bg-login p-4 rounded">
-        {!! Form::model($criteria, ['url'=>'/criterias/' . $criteria->id, 'method'=>'put']) !!}
+            {!! Form::model($criteria, ['url'=>'/criterias/' . $criteria->id, 'method'=>'put']) !!}
 
-        <div class="mb-3">
-            {!! Form::label("name", "Name", ['class' => 'form-label']) !!}
-            {!! Form::text("name", null, ['class'=>'form-control text-dark']) !!}
-        </div>
+            <div class="mb-3">
+                {!! Form::label("name", "Name", ['class' => 'form-label']) !!}
+                {!! Form::text("name", null, ['class'=>'form-control text-dark']) !!}
+            </div>
 
-        <div class="mb-3">
-            {!! Form::label("description", "Description", ['class' => 'form-label']) !!}
-            {!! Form::textarea("description", null, ['class'=>'form-control text-dark','rows'=>'3']) !!}
-        </div>
+            <div class="mb-3">
+                {!! Form::label("description", "Description", ['class' => 'form-label']) !!}
+                {!! Form::textarea("description", null, ['class'=>'form-control text-dark','rows'=>'3']) !!}
+            </div>
 
-        <div class="mb-3">
-            {!! Form::label("weight", "Weight", ['class' => 'form-label']) !!}
-            {!! Form::number("weight", null, ['class'=>'form-control text-dark']) !!}
-        </div>
+            <div class="mb-3">
+                {!! Form::label("weight", "Weight", ['class' => 'form-label']) !!}
+                {!! Form::number("weight", null, ['class'=>'form-control text-dark']) !!}
+            </div>
 
 
-        <div class="d-flex justify-content-between">
-            
-            <button class="btn btn-save" type="submit">
-                <i class="fa fa-save"></i> Save Changes
-            </button>
-    
-        {!! Form::close() !!}
-    
-            <div>
-                <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal" data-bs-target="#deleteModal{{$criteria->id}}">
-                    <i class="fa-solid fa-trash"></i>
-                    Delete Criteria
-                  </button>
-                  @include('criterias.delete-criteria')
+            <div class="d-flex justify-content-between">
+
+                <button class="btn btn-save" type="submit">
+                    <i class="fa fa-save"></i> Save Changes
+                </button>
+
+                <div>
+                    <button type="button" class="btn btn-danger p-2" data-bs-toggle="modal" data-bs-target="#deleteModal{{$criteria->id}}">
+                        <i class="fa-solid fa-trash"></i>
+                        Delete Criteria
+                    </button>
+                    @include('criterias.delete-criteria')
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
+    <div class="col-md-9 bg-login rounded text-white p-4">
+        <h3>Scoring Summary</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="bg-info text-center">
+                    <th>Contestant</th>
+                    @foreach($criteria->round->contest->judges as $index=>$judge)
+                        <th title="{{ $judge->name }}">{{ $index+1 }}</th>
+                    @endforeach
+                    <th>Avg</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach($criteria->round->contestants as $cnt)
+                    <tr class="bg-warning">
+                        <td>{{ $cnt->number }}. {{ $cnt->name }}</td>
+                        @php $sum = 0; $count=0; @endphp
+                        @foreach($criteria->round->contest->judges as $index=>$judge)
+                            @php
+                                $score = Score::get($judge->id, $criteria->id, $cnt->id)->score;
+                                $sum += $score;
+                                $count++;
+                            @endphp
+                            <td class="text-center">{{ $score }}</td>
+                        @endforeach
+                        <td class="text-center">{{ number_format($sum/$count,2) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
 </div>
-            
-    
+
+
 </div>
 
 </div>
@@ -89,7 +121,7 @@ form input[type="text"],
 form label,
 form textarea,
 form button {
-    color: #fff; 
+    color: #fff;
 }
 
 .btn-save {
