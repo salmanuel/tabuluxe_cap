@@ -25,7 +25,7 @@
                 <tr class="custom-table-row">
                     <th>Contestants</th>
                     @foreach($judge->contest->getActiveRound()->criterias as $criteria)
-                        <th>{{$criteria->name}} ({{$criteria->weight}})</th>
+                        <th style="min-width: 50px">{{$criteria->name}} ({{$criteria->weight}})</th>
                     @endforeach
                     <th>Total</th>
                     @if($judge->contest->computation === "Ranking")
