@@ -61,18 +61,17 @@ class CriteriaController extends Controller
         foreach($criteria->round->contestants as $cnt) {
             $sum = 0;
             $summary[$cnt->id]['contestant'] = $cnt;
-            foreach($criteria->round->contest->judges as $judge) {
+            foreach($judges = $criteria->round->contest->judges as $judge) {
                 $score = Score::get($judge->id, $criteria->id, $cnt->id)->score;
                 $sum += $score;
-                $count++;
                 $summary[$cnt->id]['scores'][] = $score;
             }
-            $ave = $sum/$count;
+            $ave = $sum/count($judges);
             if($ave > $highestAve) {
                 $highestAve = $ave;
                 $highestRow = $cnt->id;
             }
-            $summary[$cnt->id]['average'] = $ave;
+            $summary[$cnt->id]['average'] = number_format($ave,2);
         }
 
         return view('criterias.show', [
