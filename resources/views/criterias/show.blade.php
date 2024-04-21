@@ -74,13 +74,13 @@
             <tbody>
 
                 @foreach($summary as $id=>$row)
-                    <tr class="@if($id==$highestRow) bg-primary fw-bold text-white @else bg-warning @endif">
+                    <tr class="@if($row['average']==$highestRow) bg-primary fw-bold text-white @else bg-warning @endif">
                         <td>#{{ $row['contestant']->number }}.
                             {{ $row['contestant']->name }}</td>
                         @foreach($row['scores'] as $score)
                             <td class="text-center">{{ $score }}</td>
                         @endforeach
-                        <td>{{ $row['average'] }}</td>
+                        <td class="text-center">{{ $row['average'] }}</td>
                     </tr>
                 @endforeach
 

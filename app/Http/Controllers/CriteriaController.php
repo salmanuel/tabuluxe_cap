@@ -55,7 +55,6 @@ class CriteriaController extends Controller
         $summary = [];
 
         $count = 0;
-        $highestRow = 0;
         $highestAve = 0;
 
         foreach($criteria->round->contestants as $cnt) {
@@ -69,7 +68,6 @@ class CriteriaController extends Controller
             $ave = $sum/count($judges);
             if($ave > $highestAve) {
                 $highestAve = $ave;
-                $highestRow = $cnt->id;
             }
             $summary[$cnt->id]['average'] = number_format($ave,2);
         }
@@ -77,7 +75,7 @@ class CriteriaController extends Controller
         return view('criterias.show', [
             'criteria' => $criteria,
             'summary' => $summary,
-            'highestRow' => $highestRow
+            'highestRow' => $highestAve
         ]);
     }
 
