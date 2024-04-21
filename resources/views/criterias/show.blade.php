@@ -73,21 +73,17 @@
             </thead>
             <tbody>
 
-                @foreach($criteria->round->contestants as $cnt)
-                    <tr class="bg-warning">
-                        <td>{{ $cnt->number }}. {{ $cnt->name }}</td>
-                        @php $sum = 0; $count=0; @endphp
-                        @foreach($criteria->round->contest->judges as $index=>$judge)
-                            @php
-                                $score = Score::get($judge->id, $criteria->id, $cnt->id)->score;
-                                $sum += $score;
-                                $count++;
-                            @endphp
+                @foreach($summary as $id=>$row)
+                    <tr class="@if($id==$highestRow) bg-primary fw-bold text-white @else bg-warning @endif">
+                        <td>#{{ $row['contestant']->number }}.
+                            {{ $row['contestant']->name }}</td>
+                        @foreach($row['scores'] as $score)
                             <td class="text-center">{{ $score }}</td>
                         @endforeach
-                        <td class="text-center">{{ number_format($sum/$count,2) }}</td>
+                        <td>{{ $row['average'] }}</td>
                     </tr>
                 @endforeach
+
             </tbody>
         </table>
     </div>

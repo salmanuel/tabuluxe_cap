@@ -52,8 +52,33 @@ class CriteriaController extends Controller
     }
 
     public function show(Criteria $criteria) {
+        $summary = [];
+
+        $count = 0;
+        $highestRow = 0;
+        $highestAve = 0;
+
+        foreach($criteria->round->contestants as $cnt) {
+            $sum = 0;
+            $summary[$cnt->id]['contestant'] = $cnt;
+            foreach($criteria->round->contest->judges as $judge) {
+                $score = Score::get($judge->id, $criteria->id, $cnt->id)->score;
+                $sum += $score;
+                $count++;
+                $summary[$cnt->id]['scores'][] = $score;
+            }
+            $ave = $sum/$count;
+            if($ave > $highestAve) {
+                $highestAve = $ave;
+                $highestRow = $cnt->id;
+            }
+            $summary[$cnt->id]['average'] = $ave;
+        }
+
         return view('criterias.show', [
-            'criteria' => $criteria
+            'criteria' => $criteria,
+            'summary' => $summary,
+            'highestRow' => $highestRow
         ]);
     }
 
@@ -64,7 +89,7 @@ class CriteriaController extends Controller
             'weight' => 'numeric|required'
         ]);
 
-        
+
 
         $criteria->update($request->only('name','description','weight'));
 
