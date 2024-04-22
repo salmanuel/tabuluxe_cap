@@ -4,7 +4,7 @@
 <div class="mt-2">
     <div class="d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
-            <h1 class="title">{{$contest->title}}</h1> 
+            <h1 class="title">{{$contest->title}}</h1>
             <button type="button" class="btn btn-secondary" data-toggle="popover" title="This contest has a {{$contest->computation}} computation method and belongs to the event named {{$contest->event->event_name}}." data-content="Popover content"><i class="fa-solid fa-circle-info"></i></button>
         </div>
         <div class="d-flex justify-content-end">
@@ -84,6 +84,11 @@
                                 <a href="{{url('/judges/' . $judge->id)}}" class="btn btn-sm btn-secondary">
                                     <i class="fa fa-folder-open"></i>
                                 </a>
+                                @if($judge->session)
+                                    <a href="{{ url('/judges/delete-session/' . $judge->id) }}" class="btn btn-sm btn-warning">
+                                        <i class="fa-solid fa-user-slash"></i>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
@@ -92,7 +97,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 
@@ -113,12 +118,12 @@
 
 .custom-table-row {
     text-align: left;
-    font-size: 0.75rem; 
-    line-height: 1.5rem; 
-    font-weight: bold; 
-    color: #ffffff; 
-    text-transform: uppercase; 
-    letter-spacing: 0.1em; 
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     background-color: #1a202c;
 }
 

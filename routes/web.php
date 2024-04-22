@@ -64,6 +64,7 @@ Route::group(['middleware'=>'auth'], function() {
 
     Route::get('/judges/{judge}', [JudgeController::class, 'show']);
     Route::put('/judges/{judge}', [JudgeController::class, 'update']);
+    Route::get('/judges/delete-session/{judge}',[JudgeController::class, 'deleteSession']);
     // Route::delete('/contests/{contest}', [JudgeController::class, 'destroy'])->name('judges.destroy');
     Route::delete('/judges/{judge}/contests/{contest}', [JudgeController::class, 'destroy'])->name('judges.destroy');
 

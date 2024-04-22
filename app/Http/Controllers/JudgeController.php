@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Contest;
 use App\Models\Judge;
 use App\Models\Score;
+use App\Models\SessionModel;
 
 class JudgeController extends Controller
 {
@@ -71,5 +72,11 @@ class JudgeController extends Controller
         $judge->delete();
         Score::where('judge_id', $id)->delete();
         return redirect('/contests/' . $judge->contest->id)->with('Info', 'Deleted Successfully.');
+    }
+
+    public function deleteSession(Judge $judge) {
+        SessionModel::where('judge_id', $judge->id)
+                ->delete();
+        return back()->with('Info',"The judge's session has been deleted.");
     }
 }

@@ -15,6 +15,10 @@ class Judge extends Model
         return $this->belongsTo('App\Models\Contest');
     }
 
+    public function session() {
+        return $this->hasOne('App\Models\SessionModel');
+    }
+
     public function score($criteriaId, $contestantId) {
         return Score::where('judge_id', $this->id)
                 ->where('contestant_id', $contestantId)
