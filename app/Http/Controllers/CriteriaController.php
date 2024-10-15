@@ -75,7 +75,7 @@ class CriteriaController extends Controller
         return view('criterias.show', [
             'criteria' => $criteria,
             'summary' => $summary,
-            'highestRow' => $highestAve
+            'highestRow' => number_format($highestAve, 2)
         ]);
     }
 

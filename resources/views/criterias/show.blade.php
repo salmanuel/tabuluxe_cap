@@ -72,7 +72,7 @@
                 </tr>
             </thead>
             <tbody>
-
+                <tr><td colspan="4">{{ $highestRow }}</td></tr>
                 @foreach($summary as $id=>$row)
                     <tr class="@if($row['average']==$highestRow) bg-primary fw-bold text-white @else bg-warning @endif">
                         <td>#{{ $row['contestant']->number }}.
