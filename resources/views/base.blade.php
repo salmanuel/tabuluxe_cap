@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('fontawesome/css/all.min.css')}}">
     {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    {{-- <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'> --}}
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> --}}
+    <script src="{{asset('js/jquery-3.5.1.slim.min.js')}}"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
 
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <title>Tabuluxe</title>
@@ -28,9 +29,9 @@
                         <div class="sidebar-brand mb-3 text-center">
                             @if(!auth()->guest() && $sidebarLogo)
                                 <img src="{{ asset($sidebarLogo->photo) }}" alt="Logo" class="w-100 h-auto mx-auto d-block rounded-circle border border-3 border-warning p-2 mt-2 mb-4" style="max-width: 125px; max-height: 125px; object-fit: cover;" type="button" data-bs-toggle="modal" data-bs-target="#editModal{{auth()->user()->id}}">
-                            
+
                             @endif
-                            
+
                             @if(auth()->guest())
                                 <img src="/images/logo.png" alt="Logo" class="w-100 h-auto mx-auto d-block rounded-circle border border-3 border-warning p-2 mt-2 mb-4" style="max-width: 125px; max-height: 125px; object-fit: cover;">
                             @endif
