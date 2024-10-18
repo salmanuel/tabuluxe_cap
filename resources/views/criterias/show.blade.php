@@ -4,6 +4,8 @@
 
 @section('content')
 
+@include('criterias.delete-criteria')
+
 <div class="float-end mt-3">
     <a href="{{url('/rounds/' . $criteria->round->id . '/' . $criteria->round->contest->id)}}" class="btn btn-warning">
         <i class="fa fa-arrow-left"></i> Back to {{$criteria->round->description}}
@@ -53,7 +55,6 @@
                         <i class="fa-solid fa-trash"></i>
                         Delete Criteria
                     </button>
-                    @include('criterias.delete-criteria')
                 </div>
                 {!! Form::close() !!}
             </div>

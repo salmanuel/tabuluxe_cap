@@ -90,7 +90,7 @@ class CriteriaController extends Controller
 
         $criteria->update($request->only('name','description','weight'));
 
-        return redirect('/contests/' . $criteria->contest_id)->with('Info','Criteria ' . $criteria->name . ' has been updated.');
+        return redirect('/rounds/' . $criteria->round_id . "/" . $criteria->round->contest_id)->with('Info','Criteria ' . $criteria->name . ' has been updated.');
     }
 
     public function destroy($id)
